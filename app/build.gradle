@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.sunmi.doublescreen.doublescreenapp"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 8
+        versionName "1.7"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    //签名文件
+    signingConfigs {
+        //debug模式下的签名
+        debug {
+            storeFile file("../jdd.jks")
+            storePassword "jiangduoduo0512"
+            keyAlias "jdd"
+            keyPassword "jiangduoduo0513"
+            v2SigningEnabled false
+        }
+
+        release {
+            storeFile file("../jdd.jks")
+            storePassword "jiangduoduo0512"
+            keyAlias "jdd"
+            keyPassword "jiangduoduo0513"
+            v2SigningEnabled false
+        }
+    }
+
+
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release//签名
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            zipAlignEnabled true
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:26.+'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.sunmi:DS_Lib:1.0.9'
+}

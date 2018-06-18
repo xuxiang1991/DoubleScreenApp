@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">double screen Demo</string>
+    <string name="permission_dialog_tip">unavailable storage permission</string>
+    <string name="permission_dialog_message">The application needs to operate on the file. Please grant the permissions to read and write files</string>
+    <string name="granted">Grant permissions</string>
+    <string name="denied">cancel</string>
+    <string name="sunmi_test">sunmi Double screen APP Demo</string>
+    <string name="show_single_picture">Display a picture</string>
+    <string name="open_vice_app">Open custom vice</string>
+    <string name="btn_play_video">Play a video</string>
+    <string name="btn_play_videos">Play multiple videos</string>
+    <string name="btn_show_imgs">Slide show</string>
+    <string name="welcome_vice">welcome to custom vice app</string>
+    <string name="unconnect_main_service">Connection break with the remote service</string>
+    <string name="connect_main_service">Successful binding with the remote assistance services</string>
+    <string name="connect_vice_service">Normal network communication with the sub screen</string>
+    <string name="connect_vice_dsd">Normal communication with the sub screen app</string>
+    <string name="fail_send_picture">Failed to send picture</string>
+    <string name="fail_send_sigle_video">Send a video failure</string>
+    <string name="fail_send_more_videos">An error occurs when sending multiple videos</string>
+    <string name="single_picture_sendsuccess">successful sending single picture</string>
+    <string name="single_picture_sendfail">An error occurs when sending single picture</string>
+    <string name="acquire_permission_success">Successfully get access to permission</string>
+    <string name="permission_denied">Read write storage rights unavailable</string>
+    <string name="goto_setting">Please in the application settings - permissions, allowing dual application permissions to save user data storage</string>
+    <string name="allow">Open immediately</string>
+    <string name="cancel">cancel</string>
+    <string name="video_play_fail">Video playing error</string>
+    <string name="clean_vice_cache">clean vice cache</string>
+    <string name="clean_cache_success">Sub screen cache have been cleared</string>
+    <string name="clean_cache_fail">Sub screen cache clearing fails</string>
+    <string name="get_vice_cahceSize">acquire vice cache size</string>
+    <string name="sending_picture">sending picture</string>
+    <string name="sending_video">sending video</string>
+    <string name="sending_videos">sending videos</string>
+    <string name="sending_pictures">sending pictures</string>
+    <string name="send_text">sending text</string>
+
+</resources>
