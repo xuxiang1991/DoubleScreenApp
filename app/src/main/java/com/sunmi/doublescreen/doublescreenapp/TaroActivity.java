@@ -41,7 +41,7 @@ import sunmi.ds.data.DSData;
 import sunmi.ds.data.DSFile;
 import sunmi.ds.data.DSFiles;
 
-public class TaroActivity extends AppCompatActivity {
+public class TaroActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = TaroActivity.class.getSimpleName();
     //双屏通讯帮助类
     private DSKernel mDSKernel = null;
@@ -69,6 +69,8 @@ public class TaroActivity extends AppCompatActivity {
     //    private LinearLayout llDrinkTwo;
     private ImageView ivSelect;
     private ImageView ivBack;
+
+    private int hotType = 0;// 0 热饮  1冷饮
 
 
     /**
@@ -217,12 +219,8 @@ public class TaroActivity extends AppCompatActivity {
         initView();
         initSdk();
         initData();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                goTocenter();
-            }
-        }, 1000);
+        showBusiness();
+
 //        findViewById(R.id.tv_ok).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -250,12 +248,39 @@ public class TaroActivity extends AppCompatActivity {
         rl_select = (RelativeLayout) findViewById(R.id.rl_select);
         ivSelect = (ImageView) findViewById(R.id.iv_select);
         ivBack = (ImageView) findViewById(R.id.iv_back);
+
+        imgLove.setOnClickListener(this);
+        imgBusiness.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
+        imgHot.setOnClickListener(this);
+        imgIce.setOnClickListener(this);
     }
 
 
     private void initData() {
 
         myHandler = new MyHandler(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.img_love:
+            case R.id.img_business:
+                showHot();
+                break;
+            case R.id.img_hot:
+                hotType=0;
+                showDrinks();
+                break;
+            case R.id.img_ice:
+                hotType=1;
+                showDrinks();
+                break;
+            case R.id.iv_back:
+                break;
+        }
+
     }
 
     private static class MyHandler extends Handler {
@@ -339,6 +364,26 @@ public class TaroActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * 显示盲选
+     */
+    private void showDrinks() {
+
+        llBusness.setVisibility(View.GONE);
+        llHot.setVisibility(View.GONE);
+        rl_drink.setVisibility(View.VISIBLE);
+        rl_select.setVisibility(View.GONE);
+        ivBack.setVisibility(View.GONE);
+
+        rl_drink.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                goTocenter();
+            }
+        }, 1);
+    }
+
     /**
      * 聚合动画
      */
@@ -383,6 +428,12 @@ public class TaroActivity extends AppCompatActivity {
                 }
             });
         }
+        ivBack.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ivBack.setVisibility(View.VISIBLE);
+            }
+        }, 7800);
     }
 
     private void AnimationWithAlpa(ImageView iv) {
@@ -435,6 +486,9 @@ public class TaroActivity extends AppCompatActivity {
      * 获取选中的一杯
      */
     private void showLastTea() {
+        llBusness.setVisibility(View.GONE);
+        llHot.setVisibility(View.GONE);
+        ivBack.setVisibility(View.GONE);
         rl_drink.setVisibility(View.GONE);
         rl_select.setVisibility(View.VISIBLE);
         AnimatorSet animatorSet = new AnimatorSet();//组合动画
@@ -464,15 +518,16 @@ public class TaroActivity extends AppCompatActivity {
     }
 
 
-    private void showHot()
-    {
+    /**
+     * 选择冷饮热映
+     */
+    private void showHot() {
         llBusness.setVisibility(View.GONE);
         llHot.setVisibility(View.VISIBLE);
         rl_drink.setVisibility(View.GONE);
         rl_select.setVisibility(View.GONE);
         ivBack.setVisibility(View.GONE);
     }
-
 
 
 }

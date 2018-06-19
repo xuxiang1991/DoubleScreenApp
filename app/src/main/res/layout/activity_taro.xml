@@ -88,9 +88,9 @@
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:layout_marginLeft="24dp"
-        android:src="@drawable/return_arrow" />
+        android:layout_marginTop="24dp"
+        android:src="@drawable/icon_back" />
 
     <RelativeLayout
         android:id="@+id/rl_drink"
