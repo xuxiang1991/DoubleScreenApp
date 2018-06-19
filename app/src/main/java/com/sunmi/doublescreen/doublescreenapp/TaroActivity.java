@@ -1,5 +1,7 @@
 package com.sunmi.doublescreen.doublescreenapp;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,11 +14,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.sunmi.doublescreen.doublescreenapp.bean.CardMove;
 import com.sunmi.doublescreen.doublescreenapp.data.Data;
 import com.sunmi.doublescreen.doublescreenapp.utils.FileUtils;
 
@@ -46,7 +51,7 @@ public class TaroActivity extends AppCompatActivity {
     private Handler myHandler;
     private Gson gson = new Gson();
     private Intent intent = new Intent();
-    private long taskid=0;
+    private long taskid = 0;
     /**
      * 发送端app包名
      */
@@ -60,10 +65,16 @@ public class TaroActivity extends AppCompatActivity {
     private LinearLayout llBusness;
     private ImageView imgLove;
     private ImageView imgBusiness;
-    private LinearLayout llDrinkOne;
-    private LinearLayout llDrinkTwo;
+    private RelativeLayout rl_drink, rl_select;
+    //    private LinearLayout llDrinkTwo;
     private ImageView ivSelect;
     private ImageView ivBack;
+
+
+    /**
+     * 保存动画位置
+     */
+    private List<CardMove> cardMoves = new ArrayList<>();
 
     private IConnectionCallback mIConnectionCallback = new IConnectionCallback() {
         @Override
@@ -121,8 +132,8 @@ public class TaroActivity extends AppCompatActivity {
             Log.d(TAG, "onReceiveCMD: ------------>1111111111111");
             Data data = gson.fromJson(cmd.data, Data.class);
             Log.d(TAG, "onReceiveCMD: ------------------->" + data.dataModel);
-            taskid=cmd.taskId;
-            sender=cmd.sender;
+            taskid = cmd.taskId;
+            sender = cmd.sender;
             switch (data.dataModel) {
                 //副屏显示单张图片
                 case SHOW_IMG_WELCOME:
@@ -179,15 +190,15 @@ public class TaroActivity extends AppCompatActivity {
 //                        size = getFilesSize(file);
 //                    }
                     Toast.makeText(TaroActivity.this, "" + data.data, Toast.LENGTH_LONG).show();
-                    mDSKernel.sendResult(cmd.sender, data.data+"", cmd.taskId, null);
+                    mDSKernel.sendResult(cmd.sender, data.data + "", cmd.taskId, null);
                     break;
                 case OPEN_APP:
-                    Log.e(TAG,"打开了app");
+                    Log.e(TAG, "打开了app");
 //                    Toast.makeText(TaroActivity.this, "副屏收到"+String.valueOf(data.data),Toast.LENGTH_LONG).show();
-                    mDSKernel.sendResult(cmd.sender, data.data+"", cmd.taskId, null);
+                    mDSKernel.sendResult(cmd.sender, data.data + "", cmd.taskId, null);
                     break;
                 case GETTEA:
-                    Log.e(TAG,"打开了app");
+                    Log.e(TAG, "打开了app");
 //                    Toast.makeText(TaroActivity.this, "副屏收到"+String.valueOf(data.data),Toast.LENGTH_LONG).show();
 //                    mDSKernel.sendResult(cmd.sender, data.data+"", cmd.taskId, null);
                     break;
@@ -198,24 +209,20 @@ public class TaroActivity extends AppCompatActivity {
     };
 
 
-
-
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_taro);
         initView();
         initSdk();
         initData();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                goTocenter();
+            }
+        }, 1000);
 //        findViewById(R.id.tv_ok).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -231,8 +238,7 @@ public class TaroActivity extends AppCompatActivity {
         mDSKernel.addReceiveCallback(mIReceiveCallback);
     }
 
-    private void initView()
-    {
+    private void initView() {
         ivLogo = (ImageView) findViewById(R.id.iv_logo);
         llHot = (LinearLayout) findViewById(R.id.ll_hot);
         imgHot = (ImageView) findViewById(R.id.img_hot);
@@ -240,8 +246,8 @@ public class TaroActivity extends AppCompatActivity {
         llBusness = (LinearLayout) findViewById(R.id.ll_busness);
         imgLove = (ImageView) findViewById(R.id.img_love);
         imgBusiness = (ImageView) findViewById(R.id.img_business);
-        llDrinkOne = (LinearLayout) findViewById(R.id.ll_drink_one);
-        llDrinkTwo = (LinearLayout) findViewById(R.id.ll_drink_two);
+        rl_drink = (RelativeLayout) findViewById(R.id.rl_drink);
+        rl_select = (RelativeLayout) findViewById(R.id.rl_select);
         ivSelect = (ImageView) findViewById(R.id.iv_select);
         ivBack = (ImageView) findViewById(R.id.iv_back);
     }
@@ -312,4 +318,161 @@ public class TaroActivity extends AppCompatActivity {
         Log.d(TAG, file.getName() + "大小----》" + size);
         return size;
     }
+
+    private int alphaCount = 0;
+
+
+    /**
+     * 显示卡
+     */
+    private void goToAlpha() {
+
+        for (int i = 0; i < rl_drink.getChildCount(); i++) {
+            final ImageView v = (ImageView) rl_drink.getChildAt(i);
+            rl_drink.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AnimationWithAlpa(v);
+                }
+            }, 300 * i);
+
+        }
+    }
+
+    /**
+     * 聚合动画
+     */
+    private void goTocenter() {
+
+        goToAlpha();
+        rl_drink.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 3; i++) {
+                    rl_drink.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < rl_drink.getChildCount(); i++) {
+                                ImageView v = (ImageView) rl_drink.getChildAt(i);
+                                AnimationWithItem(v);
+                            }
+                            rl_drink.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (int i = 0; i < rl_drink.getChildCount(); i++) {
+                                        ImageView v = (ImageView) rl_drink.getChildAt(i);
+                                        AnimationWithItemOff(v, i);
+                                    }
+
+                                }
+                            }, 500);
+                        }
+                    }, 1000 * i);
+                }
+
+            }
+        }, 4800);
+
+
+        for (int i = 0; i < rl_drink.getChildCount(); i++) {
+            ImageView v = (ImageView) rl_drink.getChildAt(i);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLastTea();
+                }
+            });
+        }
+    }
+
+    private void AnimationWithAlpa(ImageView iv) {
+        iv.setVisibility(View.VISIBLE);
+        AnimatorSet animatorSet = new AnimatorSet();//组合动画
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(iv, "alpha", 0f, 1f);
+
+
+        animatorSet.setDuration(300);
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.play(alpha);
+        animatorSet.start();
+    }
+
+    /**
+     * 聚合动画
+     */
+    private void AnimationWithItem(ImageView iv) {
+        iv.setVisibility(View.VISIBLE);
+        AnimatorSet animatorSet = new AnimatorSet();//组合动画
+        ObjectAnimator transX1 = ObjectAnimator.ofFloat(iv, "X", iv.getX(), MyApplication.width / 2);
+        ObjectAnimator transY1 = ObjectAnimator.ofFloat(iv, "Y", iv.getY(), MyApplication.height / 2);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(iv, "rotation", 0, 1080);
+        CardMove cm = new CardMove(iv.getX(), iv.getY());
+        cardMoves.add(cm);
+        animatorSet.setDuration(500);
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.play(transX1).with(transY1).with(animator);
+        animatorSet.start();
+    }
+
+    /**
+     * 分散动画
+     */
+    private void AnimationWithItemOff(ImageView iv, int i) {
+        iv.setVisibility(View.VISIBLE);
+        AnimatorSet animatorSet = new AnimatorSet();//组合动画
+        ObjectAnimator transX1 = ObjectAnimator.ofFloat(iv, "X", MyApplication.width / 2, cardMoves.get(i).getX());
+        ObjectAnimator transY1 = ObjectAnimator.ofFloat(iv, "Y", MyApplication.height / 2, cardMoves.get(i).getY());
+        ObjectAnimator animator = ObjectAnimator.ofFloat(iv, "rotation", 0, 1080);
+
+        animatorSet.setDuration(500);
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.play(transX1).with(transY1).with(animator);
+        animatorSet.start();
+    }
+
+
+    /**
+     * 获取选中的一杯
+     */
+    private void showLastTea() {
+        rl_drink.setVisibility(View.GONE);
+        rl_select.setVisibility(View.VISIBLE);
+        AnimatorSet animatorSet = new AnimatorSet();//组合动画
+        ObjectAnimator animator = ObjectAnimator.ofFloat(ivSelect, "rotation", 0, 1080);
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(ivSelect, "rotationX", 0, 720);
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(ivSelect, "rotationY", 0, 720);
+
+        animatorSet.setDuration(800);
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.play(animator).with(animator1).with(animator2);
+        animatorSet.start();
+
+    }
+
+
+    /**
+     * 显示事业爱情
+     */
+    private void showBusiness() {
+        llBusness.setVisibility(View.VISIBLE);
+        llHot.setVisibility(View.GONE);
+        rl_drink.setVisibility(View.GONE);
+        rl_select.setVisibility(View.GONE);
+        ivBack.setVisibility(View.GONE);
+
+
+    }
+
+
+    private void showHot()
+    {
+        llBusness.setVisibility(View.GONE);
+        llHot.setVisibility(View.VISIBLE);
+        rl_drink.setVisibility(View.GONE);
+        rl_select.setVisibility(View.GONE);
+        ivBack.setVisibility(View.GONE);
+    }
+
+
+
 }

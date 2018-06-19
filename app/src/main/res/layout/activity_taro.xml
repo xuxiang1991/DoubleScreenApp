@@ -68,114 +68,20 @@
             android:src="@drawable/img_card_business" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_drink_one"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/iv_logo"
-        android:layout_marginTop="16sp"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_drink_two"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:layout_below="@id/ll_drink_one"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:src="@drawable/img_card_back"/>
-    </LinearLayout>
     <RelativeLayout
+        android:id="@+id/rl_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:visibility="gone">
+
         <ImageView
             android:id="@+id/iv_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_card_select"/>
+            android:layout_width="95dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/img_card_select" />
     </RelativeLayout>
 
     <ImageView
@@ -184,6 +90,164 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="24dp"
-        android:src="@drawable/return_arrow"/>
+        android:src="@drawable/return_arrow" />
+
+    <RelativeLayout
+        android:id="@+id/rl_drink"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_1"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_2"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/iv_1"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_3"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/iv_2"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_4"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/iv_3"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_5"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/iv_4"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_6"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/iv_5"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_7"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/iv_6"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_8"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/iv_7"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_9"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_1"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_10"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_2"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_11"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_3"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_12"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_4"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_13"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_5"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_14"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_6"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_15"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_7"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_16"
+            android:layout_width="57dp"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@id/iv_8"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/img_card_back"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
 </RelativeLayout>

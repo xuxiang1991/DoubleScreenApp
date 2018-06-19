@@ -1,7 +1,10 @@
 package com.sunmi.doublescreen.doublescreenapp;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.sunmi.doublescreen.doublescreenapp.utils.CrashHandler;
 
@@ -12,6 +15,9 @@ import com.sunmi.doublescreen.doublescreenapp.utils.CrashHandler;
 
 public class MyApplication extends Application {
     public static final boolean isMain = Build.MODEL.equals("t1host") || Build.MODEL.equals("T1-G");
+
+    public static int width = 0;
+    public static int height = 0;
 
     @Override
     public void onCreate() {
@@ -26,6 +32,19 @@ public class MyApplication extends Application {
 //                }
 //            }).start();
 //        }
+        initDeviceInfo();
+    }
+
+
+    public void initDeviceInfo() {
+        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        if (wm == null) {
+            return;
+        }
+        DisplayMetrics metric = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metric);
+        width = metric.widthPixels;
+        height = metric.heightPixels;
     }
 
 //    private void initAssets() {
