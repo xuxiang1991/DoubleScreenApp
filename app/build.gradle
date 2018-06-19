@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
-
+//.doublescreenapp
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.sunmi.doublescreen.doublescreenapp"
+        applicationId "com.sunmi.doublescreen"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 8
-        versionName "1.7"
+        versionCode 10
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

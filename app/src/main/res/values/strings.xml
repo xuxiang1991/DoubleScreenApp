@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">双屏应用demo</string>
+    <string name="app_name">tea应用demo</string>
     <string name="permission_dialog_tip">存储权限不可用</string>
     <string name="permission_dialog_message">该应用需要对文件进行操作，请授予读写文件的权限</string>
     <string name="granted">立即授予</string>
@@ -35,4 +35,198 @@
     <string name="sending_videos">正在发送多个视频文件</string>
     <string name="sending_pictures">正在发送轮播图</string>
     <string name="send_text">发送文本</string>
+
+
+    <string name="more_show_text">显示文字</string>
+    <string name="more_show_code_text">显示二维码+文字</string>
+    <string name="more_show_img">显示一张图片</string>
+    <string name="more_show_php">显示幻灯片</string>
+    <string name="more_show_video">显示一段视屏</string>
+    <string name="more_show_videos">显示视频轮播</string>
+    <string name="more_show_menu">显示清单</string>
+    <string name="more_show_menu_img">显示清单+一张图片</string>
+    <string name="more_show_menu_videos">显示清单+视频轮播</string>
+    <string name="more_show_menu_php">显示清单+图片轮播</string>
+    <string name="more_acquire_subinfo_main">从主屏读取硬件信息判断副屏尺寸</string>
+    <string name="more_acquire_subinfo_sub">从副屏读取model值判断副屏尺寸</string>
+    <string name="more_clear_sub_path">清空副屏指定缓存文件</string>
+    <string name="more_clear_sub_file">清除当前应用在副屏缓存文件</string>
+    <string name="more_acquire_sub_path">查看副屏指定缓存目录大小</string>
+    <string name="more_clear_subcache">清除副屏所有缓存文件</string>
+    <string name="more_open_sub_setting">打开副屏指定应用（系统设置）</string>
+    <string name="more_show_sub_property">查看副屏的时间、日期、时区、语言设置</string>
+    <string name="more_print">打印一张小票</string>
+    <string name="more_camera_qrcode">摄像头扫码</string>
+    <string name="more_get_weight_result">取重量结果</string>
+    <string name="more_peeled">去皮成功</string>
+    <string name="more_unpeeled">去皮失败</string>
+    <!-- T more-->
+    <string name="wx_pay">微信支付</string>
+    <string name="more_show_text_success">显示文字成功</string>
+    <string name="more_show_text_fail">显示文字失败</string>
+    <string name="more_show_text_exception">显示文字异常</string>
+    <string name="more_send_code_success">二维码文件发送成功</string>
+    <string name="more_send_code_fail">二维码文件发送失败</string>
+    <string name="more_show_code_text_success">显示二维码+文字成功</string>
+    <string name="more_show_code_text_fail">显示二维码+文字失败</string>
+    <string name="more_acquire_subinfo_model">从主屏读取副屏model</string>
+    <string name="more_acquire_subinfo_sub_model">从副屏获取副屏model</string>
+    <string name="more_clear_sub_file_success">清除当前应用在副屏缓存文件成功</string>
+    <string name="more_clear_sub_file_fail">清除当前应用在副屏缓存文件失败</string>
+    <string name="more_clear_file_id_fail">删除指定文件id文件失败</string>
+    <string name="more_clear_file_id_result">删除指定文件id缓存结果</string>
+    <string name="more_clear_subcache_success">清除副屏所有缓存文件成功</string>
+    <string name="more_clear_subcache_fail">清除副屏所有缓存文件失败</string>
+    <string name="more_acquire_sub_path_size_byte">副屏缓存文件大小字节数为</string>
+    <string name="more_acquire_sub_path_size">查看副屏指定缓存目录大小</string>
+    <string name="more_send_img_success">图片文件发送成功</string>
+    <string name="more_send_img_fail">图片文件发送失败</string>
+    <string name="more_send_allimg_success">所有图片文件发送成功</string>
+    <string name="more_send_allimg_fail">所有图片文件发送失败</string>
+    <string name="more_send_video_success">所有视频文件发送成功</string>
+    <string name="more_send_video_fail">所有视频文件发送失败</string>
+    <string name="more_show_menu_videos_success">显示清单+视频轮播成功</string>
+    <string name="more_show_menu_videos_fail">显示清单+视频轮播失败</string>
+    <string name="more_show_menu_img_success">显示清单+一张图片成功</string>
+    <string name="more_show_menu_img_fail">显示清单+一张图片失败</string>
+    <string name="more_send_single_img_success">单张图片文件发送成功</string>
+    <string name="more_send_single_img_fail">单张图片文件发送失败</string>
+    <string name="more_show_single_img_success">显示单张图片成功</string>
+    <string name="more_show_single_img_fail">显示单张图片失败</string>
+    <string name="more_send_allphp_success">所有幻灯片文件发送成功</string>
+    <string name="more_send_single_video_success">单视频文件发送成功</string>
+    <string name="more_send_single_video_fail">单视频文件发送失败</string>
+    <string name="more_show_single_video_success">单视频文件播放成功</string>
+    <string name="more_show_single_video_fail">单视频文件播放失败</string>
+    <string name="more_send_videos_success">轮播视频文件发送成功</string>
+    <string name="more_show_videos_success">轮播视频播放成功</string>
+    <string name="more_show_videos_fail">轮播视频播放失败</string>
+    <string name="more_sub_size">判断副屏尺寸（2）</string>
+    <string name="more_sub_cach_manager">副屏缓存管理（4）</string>
+    <string name="more_other">其他（5）</string>
+    <!--  more-->
+    <string name="more_sub">与副屏交互</string>
+    <string name="more_show_thevideo">播放一段视频</string>
+    <string name="more_prints">打印</string>
+    <string name="more_camera">摄像头</string>
+    <string name="more_camera_code">摄像头扫码</string>
+    <string name="more_scale">电子秤</string>
+    <string name="more_get_weight">取重量</string>
+    <string name="more_peele">去皮</string>
+    <string name="more_clear">清零</string>
+
+    <!--单位-->
+    <string name="units_tin">罐</string>
+    <string name="units_kg">千克</string>
+    <string name="units_each">份</string>
+    <string name="units_money">¥</string>
+    <string name="units_money_units">¥</string>
+
+    <!--商品-->
+    <string name="goods_juice">饮料</string>
+    <string name="goods_fruit">水果</string>
+    <string name="goods_apple">苹果</string>
+    <string name="goods_pear">梨子</string>
+    <string name="goods_banana">香蕉</string>
+    <string name="goods_pitaya">火龙果</string>
+    <string name="goods_coke">可乐</string>
+    <string name="goods_sprite">雪碧</string>
+    <string name="goods_red_bull">红牛</string>
+    <string name="goods_orange_juice">橙汁</string>
+    <string name="goods_gift">417发布会礼品</string>
+
+    <!--提示用语-->
+    <string name="tips_fruit_apple">请将苹果放到电子秤上</string>
+    <string name="tips_fruit_pear">请将梨子放到电子秤上</string>
+    <string name="tips_fruit_banana">请将香蕉放到电子秤上</string>
+    <string name="tips_fruit_pitaya">请将火龙果放到电子秤上</string>
+    <string name="tips_pay_money">请收取顾客的现金</string>
+    <string name="tips_pay_qrcode">请扫描顾客的收款码,完成收款</string>
+    <string name="tips_bye">客官您慢走</string>
+    <string name="tips_cancel">取消</string>
+    <string name="tips_confirm">完成</string>
+    <string name="tips_success">成功</string>
+    <string name="tips_fail">失败</string>
+    <string name="tips_net_fail">网络连接失败</string>
+    <string name="tips_exit">再按一次退出</string>
+    <!--fruitdialog-->
+    <string name="fruit_unit_price">单价（元/千克）</string>
+    <string name="fruit_kg">计重（千克）</string>
+    <string name="fruit_total">小计（元）</string>
+    <string name="fruit_add">添加</string>
+
+    <!--paydialog-->
+    <string name="pay_money">现金</string>
+    <string name="pay_ali_wx">微信/支付宝</string>
+    <string name="pay_face">人脸支付</string>
+    <string name="pay_face_tips">请将面部靠近摄像头识别范围，开始付款 </string>
+    <string name="pay_face_tips_pay">温馨提示：人脸支付为真实定额扣款</string>
+    <string name="pay_noface">暂未发现可用的外置设备</string>
+    <string name="pay_noface_change">请检查连接后重试或选用其他支付方式 </string>
+    <string name="pay_fail_tips">请重新付款或选择其他方式 </string>
+    <string name="pay_need_money">需收款: </string>
+    <string name="pay_give_money">需付款: </string>
+    <string name="pay_confirm">确认已收款</string>
+    <string name="pay_confirm_true">已收款: </string>
+    <string name="pay_pay_true">已付款: </string>
+    <string name="pay_paying">支付中...</string>
+    <string name="pay_repay">重新支付</string>
+    <string name="pay_get_moeny">开始付款</string>
+    <string name="pay_fail">支付失败！</string>
+    <string name="pay_pay_moeny">支付金额:</string>
+    <string name="pay_total_moeny">总金额:</string>
+
+    <!--收银演示菜单-->
+    <string name="menus_title">收银演示程序</string>
+    <string name="menus_title1">商米收银演示demo</string>
+    <string name="menus_title2">商米奶茶店收银</string>
+    <string name="menus_title3">商米奶茶店 欢迎你</string>
+    <string name="menus_number">序号</string>
+    <string name="menus_unit_price">单价</string>
+    <string name="menus_goods_name">商品名</string>
+    <string name="menus_more">更多功能</string>
+
+    <!--购物车菜单-->
+    <string name="shop_car">购物车</string>
+    <string name="shop_car_nothing">购物车中没有商品哟！</string>
+    <string name="shop_car_clear">清空</string>
+    <string name="shop_car_total">总计</string>
+    <string name="shop_car_offer">优惠</string>
+    <string name="shop_car_number">数量</string>
+    <string name="shop_car_code">编号</string>
+    <string name="shop_car_receivable">应收</string>
+    <string name="shop_car_goods_name">品名</string>
+    <string name="shop_car_unit_money">金额</string>
+    <string name="shop_car_totle2">合计:</string>
+    <string name="shop_car_go_pay">去付款</string>
+
+    <!--奶茶商品-->
+    <string name="tea_goods1">招牌奶茶</string>
+    <string name="tea_goods2">鸳鸯奶茶</string>
+    <string name="tea_goods3">卡布奇诺</string>
+    <string name="tea_goods4">金桔果汁</string>
+    <string name="tea_goods5">木瓜果汁</string>
+    <string name="tea_goods6">双皮奶</string>
+    <string name="tea_goods7">拿铁</string>
+    <string name="tea_goods8">柠檬果汁</string>
+    <string name="tea_goods9">苹果汁</string>
+    <string name="tea_goods10">西瓜汁</string>
+
+    <!--service状态-->
+    <string name="service_stop">与远程服务连接中断</string>
+    <string name="service_success">与远程服务绑定成功</string>
+    <string name="service_second">与副屏服务通讯正常</string>
+    <string name="service_second_app">与副屏app通讯正常</string>
+
+    <!--小票打印-->
+    <string name="print_proofs">打印样张</string>
+    <string name="print_order_number">订单编号：</string>
+    <string name="print_order_time">下单时间：</string>
+    <string name="print_payment_method">支付方式：</string>
+    <string name="print_ali_wx">支付宝/微信</string>
+    <string name="print_tips_havemoney">此单消费为真实定额交易，请核实你的付款账户信息</string>
+    <string name="print_tips_nomoney">此单消费仅为功能演示，非真实交易</string>
+    <string name="print_thanks">感谢选择商米!</string>
+    <string name="print_total_payment">累计金额：</string>
+    <string name="print_real_payment">实际收款：</string>
 </resources>

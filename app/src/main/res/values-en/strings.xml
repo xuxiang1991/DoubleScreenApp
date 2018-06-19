@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">double screen Demo</string>
+    <string name="app_name">tea demo</string>
     <string name="permission_dialog_tip">unavailable storage permission</string>
     <string name="permission_dialog_message">The application needs to operate on the file. Please grant the permissions to read and write files</string>
     <string name="granted">Grant permissions</string>

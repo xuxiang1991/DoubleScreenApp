@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -39,6 +40,11 @@ public class ViceActivity extends AppCompatActivity {
     private Handler myHandler;
     private Gson gson = new Gson();
     private Intent intent = new Intent();
+    private long taskid=0;
+    /**
+     * 发送端app包名
+     */
+    public String sender;
 
     private IConnectionCallback mIConnectionCallback = new IConnectionCallback() {
         @Override
@@ -96,6 +102,8 @@ public class ViceActivity extends AppCompatActivity {
             Log.d(TAG, "onReceiveCMD: ------------>1111111111111");
             Data data = gson.fromJson(cmd.data, Data.class);
             Log.d(TAG, "onReceiveCMD: ------------------->" + data.dataModel);
+            taskid=cmd.taskId;
+            sender=cmd.sender;
             switch (data.dataModel) {
                 //副屏显示单张图片
                 case SHOW_IMG_WELCOME:
@@ -162,7 +170,7 @@ public class ViceActivity extends AppCompatActivity {
                 case GETTEA:
                     Log.e(TAG,"打开了app");
 //                    Toast.makeText(ViceActivity.this, "副屏收到"+String.valueOf(data.data),Toast.LENGTH_LONG).show();
-                    mDSKernel.sendResult(cmd.sender, data.data+"", cmd.taskId, null);
+//                    mDSKernel.sendResult(cmd.sender, data.data+"", cmd.taskId, null);
                     break;
                 default:
                     break;
@@ -176,6 +184,13 @@ public class ViceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vice2);
         initSdk();
         initData();
+        findViewById(R.id.tv_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDSKernel.sendResult(sender, "dove", taskid, null);
+
+            }
+        });
     }
 
     private void initSdk() {

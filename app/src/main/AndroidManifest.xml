@@ -28,7 +28,15 @@
             android:screenOrientation="landscape">
         </activity>
         <activity
+            android:name=".TaroActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
             android:name=".MainActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".KMainActvity"
             android:screenOrientation="landscape">
         </activity>
         <activity

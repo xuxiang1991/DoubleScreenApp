@@ -78,16 +78,12 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 Intent intent;
                 if (isMain) {
-                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent = new Intent(SplashActivity.this, KMainActvity.class);
                 } else {
-                    intent = new Intent(SplashActivity.this, ViceActivity.class);
+                    intent = new Intent(SplashActivity.this, TaroActivity.class);
                 }
 
                 startActivity(intent);
-
-                Intent intent1 = new Intent(SplashActivity.this, MainActivity.class);
-
-                startActivity(intent1);
                 finish();
             }
         }, 2000);
