@@ -18,11 +18,17 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sunmi.doublescreen.doublescreenapp.bean.CardMove;
 import com.sunmi.doublescreen.doublescreenapp.data.Data;
+import com.sunmi.doublescreen.doublescreenapp.network.config.DailogUtil;
+import com.sunmi.doublescreen.doublescreenapp.network.config.DomainUrl;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonApiProvider;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonRequest;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonResponse;
 import com.sunmi.doublescreen.doublescreenapp.utils.FileUtils;
 
 import java.io.File;
@@ -66,12 +72,15 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView imgLove;
     private ImageView imgBusiness;
     private RelativeLayout rl_drink, rl_select;
+    private TextView tv_drink_id;
+    private TextView tv_drink_name;
     //    private LinearLayout llDrinkTwo;
     private ImageView ivSelect;
     private ImageView ivBack;
 
     private int hotType = 0;// 0 热饮  1冷饮
 
+    private Activity self;
 
     /**
      * 保存动画位置
@@ -214,6 +223,7 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        self = this;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_taro);
         initView();
@@ -248,6 +258,8 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         rl_select = (RelativeLayout) findViewById(R.id.rl_select);
         ivSelect = (ImageView) findViewById(R.id.iv_select);
         ivBack = (ImageView) findViewById(R.id.iv_back);
+        tv_drink_id = (TextView) findViewById(R.id.tv_drink_id);
+        tv_drink_name = (TextView) findViewById(R.id.tv_drink_name);
 
         imgLove.setOnClickListener(this);
         imgBusiness.setOnClickListener(this);
@@ -270,14 +282,15 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
                 showHot();
                 break;
             case R.id.img_hot:
-                hotType=0;
+                hotType = 0;
                 showDrinks();
                 break;
             case R.id.img_ice:
-                hotType=1;
+                hotType = 1;
                 showDrinks();
                 break;
             case R.id.iv_back:
+                showBusiness();
                 break;
         }
 
@@ -501,6 +514,14 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         animatorSet.play(animator).with(animator1).with(animator2);
         animatorSet.start();
 
+        rl_drink.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tv_drink_id.setVisibility(View.VISIBLE);
+                tv_drink_name.setVisibility(View.VISIBLE);
+            }
+        },800);
+
     }
 
 
@@ -513,6 +534,8 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         rl_drink.setVisibility(View.GONE);
         rl_select.setVisibility(View.GONE);
         ivBack.setVisibility(View.GONE);
+        tv_drink_name.setVisibility(View.GONE);
+        tv_drink_id.setVisibility(View.GONE);
 
 
     }
@@ -529,5 +552,31 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         ivBack.setVisibility(View.GONE);
     }
 
+
+    /**
+     * 获取一杯奶茶数据
+     */
+    private void getlastCardData() {
+
+        DailogUtil.showNetDialog(self);
+        CommonApiProvider.getNetGetCommon(DomainUrl.UPLOAD_DATA, new CommonResponse<String>() {
+            @Override
+            public void onSuccess(CommonRequest request, String data) {
+                super.onSuccess(request, data);
+                Logger.e("xx_api", data + "");
+            }
+
+            @Override
+            public void onFail(int errorCode, String errorMsg) {
+                super.onFail(errorCode, errorMsg);
+            }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+                DailogUtil.closeNetDialog();
+            }
+        });
+    }
 
 }

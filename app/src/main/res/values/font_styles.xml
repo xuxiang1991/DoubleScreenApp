@@ -1,0 +1,150 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="font_rad_xmiddle">
+        <item name="android:textColor">@color/unity_red_text</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_black_large">
+        <item name="android:textColor">@color/unity_black_text</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="font_black_17">
+        <item name="android:textColor">@color/unity_black_text</item>
+        <item name="android:textSize">@dimen/text_user_center</item>
+    </style>
+
+    <style name="font_black_normal">
+        <item name="android:textColor">@color/unity_black_text</item>
+        <item name="android:textSize">@dimen/text_size_mediu</item>
+    </style>
+
+    <style name="font_black_normal_16">
+        <item name="android:textColor">@color/unity_black_text</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_black_small">
+        <item name="android:textColor">@color/unity_black_text</item>
+        <item name="android:textSize">@dimen/text_size_mediu</item>
+    </style>
+
+    <style name="font_black_small_s">
+        <item name="android:textColor">@color/unity_black_text</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <!--灰色-->
+    <style name="font_gray_normal">
+        <item name="android:textColor">@color/common_txt_color</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_gray_small">
+        <item name="android:textColor">@color/common_txt_color</item>
+        <item name="android:textSize">@dimen/text_size_mediu</item>
+    </style>
+
+    <style name="font_gray_small_s">
+        <item name="android:textColor">@color/common_txt_color</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="font_gray_small_666">
+        <item name="android:textColor">@color/gray_item_title</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="font_gray_deep_16">
+        <item name="android:textColor">@color/unity_gray_text</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_gray_deep_small">
+        <item name="android:textColor">@color/unity_gray_text</item>
+        <item name="android:textSize">@dimen/text_size_mediu</item>
+    </style>
+
+    <!--黄色-->
+    <style name="font_orange_tiny">
+        <item name="android:textColor">@color/unity_orange_content</item>
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+    </style>
+
+    <!--蓝色-->
+    <style name="font_blue_small">
+        <item name="android:textColor">@color/unity_bule_text</item>
+        <item name="android:textSize">@dimen/text_size_mediu</item>
+    </style>
+
+    <style name="font_blue_normal">
+        <item name="android:textColor">@color/unity_bule_text</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_blue_big_xxb">
+        <item name="android:textColor">@color/unity_bule_text</item>
+        <item name="android:textSize">@dimen/text_size_xxlarge</item>
+    </style>
+
+    <!--白色-->
+    <style name="font_white_large">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="font_white_normal">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_white_small">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_mediu</item>
+    </style>
+
+    <style name="font_white_small_s">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <!--红色-->
+    <style name="font_red_large">
+        <item name="android:textColor">@color/unity_red_text</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="font_red_normal_no_parent">
+        <item name="android:textColor">@color/unity_red_text</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_red_normal" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/unity_red_text</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <style name="font_red_small">
+        <item name="android:textColor">@color/unity_red_text</item>
+        <item name="android:textSize">@dimen/text_size_mediu</item>
+    </style>
+
+    <style name="font_red_small_s">
+        <item name="android:textColor">@color/unity_red_text</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <!--白色红-->
+    <style name="font_white_red_normal">
+        <item name="android:textColor">@color/btn_red_text_color</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+    <!--红-白色-->
+    <style name="font_red_white_normal">
+        <item name="android:textColor">@color/btn_red_text_color</item>
+        <item name="android:textSize">@dimen/text_size_xmediu</item>
+    </style>
+
+</resources>

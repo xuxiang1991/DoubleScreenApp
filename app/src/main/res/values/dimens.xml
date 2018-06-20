@@ -2,4 +2,56 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="vice_main_tex">26sp</dimen>
     <dimen name="line_height">1dp</dimen>
+    <dimen name="text_size_tiny_small">9sp</dimen>
+    <dimen name="text_size_tiny">10sp</dimen>
+    <dimen name="text_size_smaller">11sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_mediu">14sp</dimen>
+    <dimen name="text_size_mediu_halfx">15sp</dimen>
+    <dimen name="text_size_xmediu">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xlarge">20sp</dimen>
+    <dimen name="text_size_xxlarge">22sp</dimen>
+    <dimen name="ui_new_dimen_radius">8px</dimen>
+    <dimen name="text_user_center">17sp</dimen>
+    <dimen name="text_zh_recode">13sp</dimen>
+
+    <!-- 轮播 -->
+    <dimen name="lunbo_fontsize">14sp</dimen>
+    <dimen name="viewpager_focusview_paddingleft_size">4dp</dimen>
+    <dimen name="viewpager_focusview_paddingright_size">4dp</dimen>
+    <dimen name="viewpager_focusview_text_padding_font">4dp</dimen>
+    <dimen name="ball_size">40dp</dimen>
+    <dimen name="ball_margin">4dp</dimen>
+    <dimen name="order_detail_padding_left_right">8dp</dimen>
+    <dimen name="order_detail_padding_top_bottom">4dp</dimen>
+    <dimen name="order_detail_left_part_content_width">100dp</dimen>
+
+    <!--间隔-->
+    <dimen name="common_gap_line">1px</dimen>
+    <dimen name="common_gap_small">4dp</dimen>
+    <dimen name="common_gap_normal">8dp</dimen>
+    <dimen name="common_gap_sub">12dp</dimen>
+    <dimen name="common_gap_large">16dp</dimen>
+    <dimen name="common_gap_xlarge">20dp</dimen>
+    <dimen name="common_gap_sub_double">24dp</dimen>
+    <dimen name="common_height_small">32dp</dimen>
+    <dimen name="common_icon_normal">42dp</dimen>
+    <dimen name="common_height_normal">48dp</dimen>
+    <dimen name="common_height_large">64dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!--psts-->
+    <dimen name="psts_dot_wh">8dp</dimen>
+    <dimen name="psts_dot_m_right">9dp</dimen>
+    <dimen name="psts_dot_m_top">7dp</dimen>
+    <dimen name="psts_dot_linelayout_h">23dp</dimen>
+    <dimen name="psts_dot_txt_size">10sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--我的个人中心-->
+    <dimen name="usercenter_big_textse">16sp</dimen>
+    <dimen name="usercenter_num_size">18sp</dimen>
 </resources>

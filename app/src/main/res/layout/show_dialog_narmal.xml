@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/show_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!-- android:background="@drawable/show_normal" -->
+
+    <LinearLayout
+        style="@style/common_compontv"
+        android:background="@drawable/loadingdialog_bg_new_frame"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <!--       <ProgressBar
+                  style="?android:attr/progressBarStyle"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:padding="7dp"
+                  android:indeterminateDrawable="@drawable/progress_image"
+                  /> -->
+
+        <!---->
+        <!--<ImageView -->
+        <!--android:id="@+id/img_loading"            -->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/custom_progressbar"-->
+        <!--android:padding="10dp"-->
+        <!--/>-->
+
+        <ProgressBar
+            android:id="@android:id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/pro_show_zi"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="加载中..."
+            android:textColor="@color/ui_new_hemai_txt"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

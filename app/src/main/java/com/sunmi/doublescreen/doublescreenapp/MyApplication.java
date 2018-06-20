@@ -19,8 +19,19 @@ public class MyApplication extends Application {
     public static int width = 0;
     public static int height = 0;
 
+    private static MyApplication singleInstance;
+
+    public static MyApplication getInstance() {
+        return singleInstance;
+    }
+
+
     @Override
     public void onCreate() {
+        super.onCreate();
+
+        getApplicationContext();
+        singleInstance = this;
         super.onCreate();
         CrashHandler catchHandler = CrashHandler.getInstance();
         catchHandler.init(getApplicationContext());//用来获取全局的错误处理
