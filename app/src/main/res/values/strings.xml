@@ -136,6 +136,7 @@
     <string name="goods_gift">417发布会礼品</string>
 
     <!--提示用语-->
+    <string name="tips_delete">是否删除该条目?</string>
     <string name="tips_fruit_apple">请将苹果放到电子秤上</string>
     <string name="tips_fruit_pear">请将梨子放到电子秤上</string>
     <string name="tips_fruit_banana">请将香蕉放到电子秤上</string>
@@ -150,11 +151,11 @@
     <string name="tips_net_fail">网络连接失败</string>
     <string name="tips_exit">再按一次退出</string>
     <!--fruitdialog-->
-    <string name="fruit_unit_price">单价（元/千克）</string>
-    <string name="fruit_kg">计重（千克）</string>
-    <string name="fruit_total">小计（元）</string>
+    <string name="fruit_unit_price">杯型（大 中 小）</string>
+    <string name="fruit_kg">温度（冷 热）</string>
+    <string name="fruit_total">数量（杯）</string>
     <string name="fruit_add">添加</string>
-
+    <string name="fruit_sure">确定</string>
     <!--paydialog-->
     <string name="pay_money">现金</string>
     <string name="pay_ali_wx">微信/支付宝</string>

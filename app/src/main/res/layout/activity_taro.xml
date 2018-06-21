@@ -78,8 +78,9 @@
 
         <ImageView
             android:id="@+id/iv_select"
-            android:layout_width="95dp"
-            android:layout_height="150dp"
+            android:layout_width="180dp"
+            android:layout_height="260dp"
+            android:scaleType="fitXY"
             android:layout_centerInParent="true"
             android:src="@drawable/img_card_select" />
 
@@ -88,20 +89,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            android:text="12"
+            android:layout_marginTop="54dp"
+            android:gravity="center"
+            android:text="99"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_drink_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="95dp"
-            android:text="珍珠奶茶"
+            android:gravity="center"
+            android:layout_marginTop="170dp"
+            android:text="经济醇香型\n珍珠奶茶"
             android:textColor="@color/gray_item_title"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <ImageView
@@ -121,16 +124,16 @@
 
         <ImageView
             android:id="@+id/iv_1"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_2"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/iv_1"
             android:src="@drawable/img_card_back"
@@ -138,8 +141,8 @@
 
         <ImageView
             android:id="@+id/iv_3"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/iv_2"
             android:src="@drawable/img_card_back"
@@ -147,8 +150,8 @@
 
         <ImageView
             android:id="@+id/iv_4"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/iv_3"
             android:src="@drawable/img_card_back"
@@ -156,8 +159,8 @@
 
         <ImageView
             android:id="@+id/iv_5"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/iv_4"
             android:src="@drawable/img_card_back"
@@ -165,8 +168,8 @@
 
         <ImageView
             android:id="@+id/iv_6"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/iv_5"
             android:src="@drawable/img_card_back"
@@ -174,8 +177,8 @@
 
         <ImageView
             android:id="@+id/iv_7"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/iv_6"
             android:src="@drawable/img_card_back"
@@ -183,8 +186,8 @@
 
         <ImageView
             android:id="@+id/iv_8"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/iv_7"
             android:src="@drawable/img_card_back"
@@ -192,81 +195,81 @@
 
         <ImageView
             android:id="@+id/iv_9"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_1"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_10"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_2"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_11"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_3"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_12"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_4"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_13"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_5"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_14"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_6"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_15"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_7"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_16"
-            android:layout_width="57dp"
-            android:layout_height="80dp"
+            android:layout_width="114dp"
+            android:layout_height="160dp"
             android:layout_alignLeft="@id/iv_8"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="175dp"
             android:src="@drawable/img_card_back"
             android:visibility="invisible" />
     </RelativeLayout>

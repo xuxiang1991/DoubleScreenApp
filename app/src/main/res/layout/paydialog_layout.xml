@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="474.66dp"
+        android:layout_height="342.66dp"
+        android:background="@drawable/pay_dialog_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/pay_dialog_two_bg">
+
+            <RadioGroup
+                android:id="@+id/rg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+             >
+
+                <com.sunmi.doublescreen.doublescreenapp.view.MyRadioButton
+                    android:id="@+id/rbone"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawablePadding="6.66dp"
+                    android:drawableTop="@drawable/cash_drawable_top"
+                    android:gravity="center_horizontal"
+                    android:text="@string/pay_money"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13.33sp"
+                    android:checked="true"/>
+
+
+                <View
+                    android:layout_width="66.66dp"
+                    android:layout_height="0.66dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.3"
+                    android:background="#FFFFFF" />
+
+                <com.sunmi.doublescreen.doublescreenapp.view.MyRadioButton
+                    android:id="@+id/rbtwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawablePadding="6.66dp"
+                    android:drawableTop="@drawable/linepay_drawable_top"
+                    android:gravity="center_horizontal"
+                    android:text="@string/pay_ali_wx"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13.33sp" />
+
+                <!--<View-->
+                    <!--android:layout_width="66.66dp"-->
+                    <!--android:layout_height="0.66dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:alpha="0.3"-->
+                    <!--android:background="#FFFFFF" />-->
+
+                <!--<com.sunmi.doublescreen.doublescreenapp.view.MyRadioButton-->
+                    <!--android:id="@+id/rbthree"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:button="@null"-->
+                    <!--android:drawablePadding="6.66dp"-->
+                    <!--android:drawableTop="@drawable/face_pay"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:text="@string/pay_face"-->
+                    <!--android:textColor="#FFFFFF"-->
+                    <!--android:textSize="13.33sp" />-->
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/pay_arrow"
+                    android:visibility="visible" />
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_mid"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:src="@drawable/pay_arrow"-->
+                    <!--android:visibility="invisible" />-->
+
+                <ImageView
+                    android:id="@+id/iv_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/pay_arrow"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/lly_pay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="21.33dp"
+                    android:src="@drawable/cash" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/ll_can_pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_describ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:alpha="0.5"
+                            android:text="@string/tips_pay_money"
+                            android:textColor="#000000"
+                            android:textSize="12sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:text="@string/pay_need_money"
+                                android:textColor="#000000"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/tv_money"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
+                                android:text="60.55"
+                                android:textColor="#000000"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_face_pay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pay_face_tips_pay"
+                            android:textColor="#FC7070"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_no_face"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pay_noface"
+                            android:textColor="#000000"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pay_noface_change"
+                            android:textColor="#88000000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_fail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pay_fail" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pay_fail"
+                        android:textColor="#000000"
+                        android:textSize="21.33sp" />
+
+                    <TextView
+                        android:id="@+id/tv_pay_fail_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pay_noface"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pay_fail_tips"
+                        android:textColor="#88000000"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="41.33dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="22dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_cancel"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="106.66dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="6.66dp"
+                            android:alpha="0.6"
+                            android:background="@drawable/pay_dialog_grayline_bg"
+                            android:gravity="center"
+                            android:text="@string/tips_cancel"
+                            android:textColor="#000000"
+                            android:textSize="14.66sp" />
+
+                        <Button
+                            android:id="@+id/btn_ok"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="106.66dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="6.66dp"
+                            android:background="@drawable/pay_dialog_yellowline_bg"
+                            android:gravity="center"
+                            android:text="@string/pay_confirm"
+                            android:textColor="#fc5436"
+                            android:textSize="14.66sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_paying"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/paying"
+                    android:text="@string/pay_paying"
+                    android:textColor="#000000"
+                    android:textSize="21.33sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lly_pay_complete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:layout_marginTop="89.33dp"
+                    android:src="@drawable/pay_complete" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="76dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_pay_success"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/pay_confirm_true"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_money_complete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_complete"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="106.66dp"
+                    android:layout_height="41.33dp"
+                    android:background="@drawable/pay_dialog_yellowline_bg"
+                    android:gravity="center"
+                    android:text="@string/tips_confirm"
+                    android:textColor="#fc5436"
+                    android:textSize="14.66sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

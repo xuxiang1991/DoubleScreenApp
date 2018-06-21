@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 创建人：xuxiang
  * 修改人：
  */
-public class DrinkBean implements Serializable{
+public class DrinkBean implements Serializable {
 
 
     private boolean canCold;
@@ -20,8 +20,37 @@ public class DrinkBean implements Serializable{
     private long ID;
     private String Name;
     private String price;
-    private long count;
+    private int count;
 
+    private String description;
+
+    private int hotType;//0 热饮  1冷饮 2 常温
+    private int boxType;//0 小  1中 2 大
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getHotType() {
+        return hotType;
+    }
+
+    public void setHotType(int hotType) {
+        this.hotType = hotType;
+    }
+
+    public int getBoxType() {
+        return boxType;
+    }
+
+    public void setBoxType(int boxType) {
+        this.boxType = boxType;
+    }
 
     public boolean isCanCold() {
         return canCold;
@@ -87,11 +116,31 @@ public class DrinkBean implements Serializable{
         this.price = price;
     }
 
-    public long getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(long count) {
+    public void setCount(int count) {
         this.count = count;
+    }
+
+
+
+    public DrinkBean getCopy()
+    {
+        DrinkBean bean=new DrinkBean();
+        bean.setID(this.getID());
+        bean.setBoxType(this.getBoxType());
+        bean.setHotType(this.getHotType());
+        bean.setPrice(this.getPrice());
+        bean.setName(this.getName());
+        bean.setCanMin(this.isCanMin());
+        bean.setCanMiddle(this.isCanMiddle());
+        bean.setCanHot(this.isCanHot());
+        bean.setCanCold(this.isCanCold());
+        bean.setCanBig(this.isCanBig());
+        bean.setCount(this.getCount());
+        bean.setDescription(this.getDescription());
+        return bean;
     }
 }

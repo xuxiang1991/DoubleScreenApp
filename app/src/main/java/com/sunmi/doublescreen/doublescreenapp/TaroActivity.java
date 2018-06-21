@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -78,7 +79,7 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView ivSelect;
     private ImageView ivBack;
 
-    private int hotType = 0;// 0 热饮  1冷饮
+    private int hotType = 0;// 0 热饮  1冷饮 2 常温
 
     private Activity self;
 
@@ -210,6 +211,7 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case GETTEA:
                     Log.e(TAG, "打开了app");
+                    showBusiness();
 //                    Toast.makeText(TaroActivity.this, "副屏收到"+String.valueOf(data.data),Toast.LENGTH_LONG).show();
 //                    mDSKernel.sendResult(cmd.sender, data.data+"", cmd.taskId, null);
                     break;
@@ -514,13 +516,18 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         animatorSet.play(animator).with(animator1).with(animator2);
         animatorSet.start();
 
+        if (!TextUtils.isEmpty(sender)) {
+            mDSKernel.sendResult(sender, "2", taskid, null);
+        }
+
         rl_drink.postDelayed(new Runnable() {
             @Override
             public void run() {
+                tv_drink_id.setText("2");
                 tv_drink_id.setVisibility(View.VISIBLE);
                 tv_drink_name.setVisibility(View.VISIBLE);
             }
-        },800);
+        }, 800);
 
     }
 
@@ -536,6 +543,10 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         ivBack.setVisibility(View.GONE);
         tv_drink_name.setVisibility(View.GONE);
         tv_drink_id.setVisibility(View.GONE);
+        for (int i = 0; i < rl_drink.getChildCount(); i++) {
+            ImageView v = (ImageView) rl_drink.getChildAt(i);
+            v.setVisibility(View.INVISIBLE);
+        }
 
 
     }

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+
+    <RelativeLayout
+        android:layout_width="400dp"
+        android:layout_height="385.33dp"
+        android:background="@drawable/pay_dialog_bg">
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_logo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:src="@drawable/apple_dialog" />-->
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="37.33dp"
+            android:layout_marginTop="32dp"
+            android:alpha="0.5"
+            android:text="@string/tips_fruit_apple"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_des"
+            android:layout_marginLeft="37.33dp"
+            android:layout_marginTop="18.66dp"
+            android:alpha="0.5"
+            android:text="@string/fruit_unit_price"
+            android:textColor="#000000"
+            android:textSize="13.33sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv"
+            android:layout_margin="6dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37.33dp"
+                android:background="@drawable/select_drink"
+                android:button="@null"
+                android:padding="2dp"
+                android:text="小杯"
+                android:textColor="@color/select_drink_text"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rb_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37.33dp"
+                android:background="@drawable/select_drink"
+                android:button="@null"
+                android:checked="true"
+                android:padding="2dp"
+                android:text="中杯"
+                android:textColor="@color/select_drink_text"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rb_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37.33dp"
+                android:background="@drawable/select_drink"
+                android:button="@null"
+                android:padding="2dp"
+                android:text="大杯"
+                android:textColor="@color/select_drink_text"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rg_box"
+            android:layout_marginLeft="37.33dp"
+            android:layout_marginTop="8dp"
+            android:alpha="0.5"
+            android:text="@string/fruit_kg"
+            android:textColor="#000000"
+            android:textSize="13.33sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quality"
+            android:layout_margin="6dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37.33dp"
+                android:background="@drawable/select_drink"
+                android:button="@null"
+                android:paddingBottom="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="2dp"
+                android:text="热"
+                android:textColor="@color/select_drink_text"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rb_ice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37.33dp"
+                android:background="@drawable/select_drink"
+                android:button="@null"
+                android:paddingBottom="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="2dp"
+                android:text="冷"
+                android:textColor="@color/select_drink_text"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rb_nomal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="37.33dp"
+                android:background="@drawable/select_drink"
+                android:button="@null"
+                android:checked="true"
+                android:paddingBottom="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="2dp"
+                android:text="常温"
+                android:textColor="@color/select_drink_text"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/rg_hot"
+            android:layout_marginLeft="37.33dp"
+            android:layout_marginRight="37.33dp"
+            android:layout_marginTop="8dp"
+            android:alpha="0.3"
+            android:background="@drawable/addfruit_line"
+            android:layerType="software" />
+
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_marginLeft="37.33dp"
+            android:layout_marginTop="8dp"
+            android:alpha="0.5"
+            android:text="@string/fruit_total"
+            android:textColor="#000000"
+            android:textSize="13.33sp" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/total"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_maines"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="32dp"
+                android:background="@drawable/select_drink"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/select_drink_text"
+                android:textSize="24dp" />
+
+            <EditText
+                android:id="@+id/tv_total"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:inputType="number"
+                android:maxLength="3"
+                android:text="1"
+                android:textColor="#FC5346"
+                android:textSize="37.33sp" />
+
+            <Button
+                android:id="@+id/bt_plus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/select_drink"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/select_drink_text"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="0.66dp"
+            android:layout_below="@id/ll_total"
+            android:layout_marginTop="13.33dp"
+            android:background="#CEDADD" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/line1"
+            android:background="@drawable/pay_dialog_button_bg"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:background="@null"
+                android:text="@string/tips_cancel"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="0.66dp"
+                android:layout_height="match_parent"
+                android:background="#CEDADD" />
+
+            <Button
+                android:id="@+id/btn_add"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:background="@null"
+                android:text="@string/fruit_add"
+                android:textColor="#FC5346"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
