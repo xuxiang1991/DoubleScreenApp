@@ -569,7 +569,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        CommonApiProvider.getNetGetCommon(DomainUrl.Choose_last_product, new CommonResponse<String>() {
+        CommonApiProvider.getNetGetCommon(DomainUrl.Complete_Order, new CommonResponse<String>() {
             @Override
             public void onSuccess(CommonRequest request, String data) {
                 super.onSuccess(request, data);
