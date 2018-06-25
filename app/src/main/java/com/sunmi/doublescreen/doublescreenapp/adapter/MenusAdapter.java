@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 
 import com.sunmi.doublescreen.doublescreenapp.R;
-import com.sunmi.doublescreen.doublescreenapp.bean.DrinkBean;
+import com.sunmi.doublescreen.doublescreenapp.bean.ProductList;
 
 import java.util.List;
 
@@ -24,9 +24,9 @@ import java.util.List;
 public class MenusAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<DrinkBean> mMenus;
+    private List<ProductList.ProductsBean> mMenus;
 
-    public MenusAdapter(Context context, List<DrinkBean> menus) {
+    public MenusAdapter(Context context, List<ProductList.ProductsBean> menus) {
         this.mContext = context;
         this.mMenus = menus;
     }
@@ -64,9 +64,9 @@ public class MenusAdapter extends BaseAdapter {
             hold = (ViewHold) convertView.getTag();
         }
         Log.d("Sunmi", "getView: ------->" + (hold.tvId == null) + "  " + (mMenus == null));
-        hold.tvId.setText(mMenus.get(position).getID() + "");
+        hold.tvId.setText(mMenus.get(position).getUid() + "");
         hold.tvName.setText(mMenus.get(position).getName());
-        hold.tvMoney.setText(mMenus.get(position).getPrice());
+        hold.tvMoney.setText(mMenus.get(position).getSellPrice());
         hold.tvcount.setText("X " + mMenus.get(position).getCount());
         if ((position + 1) % 2 == 0) {
             hold.llyBg.setBackgroundColor(Color.parseColor("#F1F5F6"));
@@ -86,7 +86,7 @@ public class MenusAdapter extends BaseAdapter {
         private TextView tvsize, tvhot, tvcount;
     }
 
-    public void update(List<DrinkBean> menus) {
+    public void update(List<ProductList.ProductsBean> menus) {
         this.mMenus = menus;
         notifyDataSetChanged();
     }

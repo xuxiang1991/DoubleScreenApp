@@ -1,7 +1,6 @@
 package com.sunmi.doublescreen.doublescreenapp.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,20 +9,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
 import com.sunmi.doublescreen.doublescreenapp.R;
-import com.sunmi.doublescreen.doublescreenapp.bean.DrinkBean;
+import com.sunmi.doublescreen.doublescreenapp.bean.ProductList;
 
 import java.text.DecimalFormat;
 
@@ -46,7 +44,7 @@ public class AddFruitDialogFragment extends AppCompatDialogFragment implements V
     boolean isShow = false;//防多次点击
     static int defaultNet = -10;
 
-    private DrinkBean bean;
+    private ProductList.ProductsBean bean;
 
     private RadioGroup rg_hot, rg_box;
 
@@ -183,6 +181,27 @@ public class AddFruitDialogFragment extends AppCompatDialogFragment implements V
 
     }
 
+
+    /**
+     * 显示温度
+     *
+     * @param hotType
+     */
+    private void shoHotType(int hotType) {
+        switch (hotType) {
+            case 0:
+                ((RadioButton) getDialog().findViewById(R.id.rb_hot)).setChecked(true);
+                break;
+            case 1:
+                ((RadioButton) getDialog().findViewById(R.id.rb_ice)).setChecked(true);
+                break;
+            case 2:
+                ((RadioButton) getDialog().findViewById(R.id.rb_nomal)).setChecked(true);
+                break;
+        }
+
+    }
+
     private void initAction() {
         btnAdd.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
@@ -197,11 +216,11 @@ public class AddFruitDialogFragment extends AppCompatDialogFragment implements V
     private void initData() {
         Bundle bundle = getArguments();
         if (null != bundle) {
-            bean = (DrinkBean) bundle.getSerializable("item");
+            bean = (ProductList.ProductsBean) bundle.getSerializable("item");
             name = bean.getName();
-            tvDes.setText(bean.getID() + "  " + bean.getName() + " ¥" + bean.getPrice());
+            tvDes.setText(bean.getUid() + "  " + bean.getName() + " ¥" + bean.getSellPrice());
+            shoHotType(bean.getHotType());
             tvTotal.setText("1");
-            bean.setCount(8);
 //            Log.d("TAG", "initData: ------------>" + (ivLogo == null));
 //            ivLogo.setImageResource(R.drawable.apple_dialog);
         }
@@ -251,6 +270,6 @@ public class AddFruitDialogFragment extends AppCompatDialogFragment implements V
     }
 
     public interface AddListener {
-        void onAddResult(DrinkBean bean);
+        void onAddResult(ProductList.ProductsBean bean);
     }
 }

@@ -161,7 +161,7 @@ public class CommonApiProvider {
 //            String ency = Aes.encryptContent(getparamArr(paramArr, action), EncryptionType, KEY, ENCODING);
 //            builder.addFormDataPart("request", ency);
 
-            builder.addFormDataPart("request",paramArr);
+            builder.addFormDataPart("body",paramArr);
         } catch (Exception e) {
             e.printStackTrace();
         }

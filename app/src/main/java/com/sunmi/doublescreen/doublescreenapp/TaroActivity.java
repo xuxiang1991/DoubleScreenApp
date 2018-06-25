@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.sunmi.doublescreen.doublescreenapp.bean.CardMove;
+import com.sunmi.doublescreen.doublescreenapp.bean.RandomProduct;
 import com.sunmi.doublescreen.doublescreenapp.data.Data;
 import com.sunmi.doublescreen.doublescreenapp.network.config.DailogUtil;
 import com.sunmi.doublescreen.doublescreenapp.network.config.DomainUrl;
@@ -87,6 +88,12 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
      * 保存动画位置
      */
     private List<CardMove> cardMoves = new ArrayList<>();
+
+    /**
+     * 最后选中的奶茶
+     */
+    private String lastSelectTea = "";
+
 
     private IConnectionCallback mIConnectionCallback = new IConnectionCallback() {
         @Override
@@ -394,6 +401,7 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         rl_drink.postDelayed(new Runnable() {
             @Override
             public void run() {
+                getlastCardData();
                 goTocenter();
             }
         }, 1);
@@ -517,7 +525,7 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         animatorSet.start();
 
         if (!TextUtils.isEmpty(sender)) {
-            mDSKernel.sendResult(sender, "2", taskid, null);
+            mDSKernel.sendResult(sender, lastSelectTea, taskid, null);
         }
 
         rl_drink.postDelayed(new Runnable() {
@@ -569,12 +577,17 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void getlastCardData() {
 
-        DailogUtil.showNetDialog(self);
-        CommonApiProvider.getNetGetCommon(DomainUrl.UPLOAD_DATA, new CommonResponse<String>() {
+        CommonApiProvider.getNetGetCommon(DomainUrl.Choose_last_product, new CommonResponse<String>() {
             @Override
             public void onSuccess(CommonRequest request, String data) {
                 super.onSuccess(request, data);
                 Logger.e("xx_api", data + "");
+                if (!TextUtils.isEmpty(data) && data.length() > 2) {
+                    RandomProduct product = new Gson().fromJson(data, RandomProduct.class);
+                    product.setHotType(hotType);
+                    lastSelectTea = new Gson().toJson(product);
+                }
+
             }
 
             @Override
@@ -585,7 +598,6 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete() {
                 super.onComplete();
-                DailogUtil.closeNetDialog();
             }
         });
     }

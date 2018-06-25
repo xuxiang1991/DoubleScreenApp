@@ -8,6 +8,10 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 
 import com.google.gson.Gson;
+import com.sunmi.doublescreen.doublescreenapp.bean.ProductList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 配置信息
@@ -158,5 +162,15 @@ public class Config {
     public static void setCurrentLOGO(String currentLogo) {
         UserInfoPreferences.edit().putString(CURRENT_LOGO, currentLogo).commit();
     }
+
+
+    /**
+     * 热门产品列表
+     */
+    public static List<ProductList.ProductsBean> hotPorducts=new ArrayList<>();
+    /**
+     * 普通产品列表
+     */
+    public static List<ProductList.ProductsBean> comPorducts=new ArrayList<>();
 
 }

@@ -17,14 +17,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sunmi.doublescreen.doublescreenapp.adapter.GvAdapter;
 import com.sunmi.doublescreen.doublescreenapp.adapter.MenusAdapter;
-import com.sunmi.doublescreen.doublescreenapp.bean.DrinkBean;
+import com.sunmi.doublescreen.doublescreenapp.bean.OrderForm;
+import com.sunmi.doublescreen.doublescreenapp.bean.OrderResult;
+import com.sunmi.doublescreen.doublescreenapp.bean.ProductList;
+import com.sunmi.doublescreen.doublescreenapp.bean.RandomProduct;
 import com.sunmi.doublescreen.doublescreenapp.data.DataModel;
 import com.sunmi.doublescreen.doublescreenapp.data.UPacketFactory;
 import com.sunmi.doublescreen.doublescreenapp.dialog.AddFruitDialogFragment;
 import com.sunmi.doublescreen.doublescreenapp.dialog.ItemDeleteDialogFragment;
 import com.sunmi.doublescreen.doublescreenapp.dialog.PayDialog;
+import com.sunmi.doublescreen.doublescreenapp.network.config.DailogUtil;
+import com.sunmi.doublescreen.doublescreenapp.network.config.DomainUrl;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonApiProvider;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonRequest;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonResponse;
+import com.sunmi.doublescreen.doublescreenapp.toast.ToastManager;
+import com.sunmi.doublescreen.doublescreenapp.utils.DateUtils;
 import com.sunmi.doublescreen.doublescreenapp.utils.DecimalMath;
 import com.sunmi.doublescreen.doublescreenapp.utils.SharePreferenceUtil;
 import com.sunmi.doublescreen.doublescreenapp.view.MyGridView;
@@ -74,15 +86,15 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     /**
      * 主打
      */
-    private List<DrinkBean> hotDrinks = new ArrayList<>();
+    private List<ProductList.ProductsBean> hotDrinks = new ArrayList<>();
     /**
      * 普通
      */
-    private List<DrinkBean> comDrinks = new ArrayList<>();
+    private List<ProductList.ProductsBean> comDrinks = new ArrayList<>();
     /**
      * 购物车
      */
-    private List<DrinkBean> sallDrinks = new ArrayList<>();
+    private List<ProductList.ProductsBean> sallDrinks = new ArrayList<>();
 
     private GvAdapter hotAdapter;
     private GvAdapter comAdapter;
@@ -93,6 +105,8 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     private ItemDeleteDialogFragment deleteDialog;
 
     private PayDialog payDialog;
+
+    private OrderResult newOrder = null;
 
     private IConnectionCallback mIConnectionCallback = new IConnectionCallback() {
         @Override
@@ -200,7 +214,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         dialogFragment = new AddFruitDialogFragment();
         dialogFragment.setListener(new AddFruitDialogFragment.AddListener() {
             @Override
-            public void onAddResult(DrinkBean bean) {
+            public void onAddResult(ProductList.ProductsBean bean) {
                 sallDrinks.add(bean);
                 menusAdapter.update(sallDrinks);
                 updateTotalMoney();
@@ -246,19 +260,17 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         dialog = new ProgressDialog(this);
 
 
-        for (int i = 0; i < 11; i++) {
-            DrinkBean bean = new DrinkBean();
-            bean.setID(i);
-            bean.setCanBig(true);
-            bean.setCanCold(true);
-            bean.setCanHot(true);
-            bean.setCanMiddle(true);
-            bean.setCanMin(true);
-            bean.setName("金桔柠檬茶" + 1);
-            bean.setPrice((8 + i) + "");
-            hotDrinks.add(bean);
-            comDrinks.add(bean);
-        }
+//        for (int i = 0; i < 11; i++) {
+//            ProductList.ProductsBean bean = new ProductList.ProductsBean();
+//            bean.setUid("123456");
+//            bean.setName("金桔柠檬茶" + 1);
+//            bean.setSellPrice((8 + i) + "");
+//            hotDrinks.add(bean);
+//            comDrinks.add(bean);
+//        }
+
+        hotDrinks.addAll(Config.hotPorducts);
+        comDrinks.addAll(Config.comPorducts);
 
 
         payDialog = new PayDialog();
@@ -320,9 +332,14 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void run() {
 
-                                int p = Integer.parseInt(data.data);
+                                RandomProduct product = new Gson().fromJson(data.data, RandomProduct.class);
+                                ProductList.ProductsBean pb = getSelectProduct(product);
+                                if (pb == null) {
+                                    Toast.makeText(KMainActvity.this, "获取数据有误" + data.data, Toast.LENGTH_LONG).show();
+                                    return;
+                                }
                                 Bundle bundle = new Bundle();
-                                bundle.putSerializable("item", comDrinks.get(p).getCopy());
+                                bundle.putSerializable("item", getSelectProduct(product));
                                 dialogFragment.setArguments(bundle);
                                 dialogFragment.show(getSupportFragmentManager(), "");
                                 Toast.makeText(KMainActvity.this, "主屏4收到" + data.data, Toast.LENGTH_LONG).show();
@@ -384,6 +401,33 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    /**
+     * 接收返回的产品
+     *
+     * @param product
+     * @return
+     */
+    private ProductList.ProductsBean getSelectProduct(RandomProduct product) {
+        if (comDrinks.size() > 0) {
+            for (int i = 0; i < comDrinks.size(); i++) {
+                ProductList.ProductsBean bean = comDrinks.get(i);
+                if (product.getBarcode().equals(bean.getBarcode())) {
+                    ProductList.ProductsBean newProduct = bean.getCopy();
+                    newProduct.setHotType(product.getHotType());
+                    newProduct.setUrl(product.getQrurl());
+                    newProduct.setSign(product.getSign());
+                    return newProduct;
+                }
+
+            }
+
+
+        }
+
+        return null;
+    }
+
+
     private static class MyHandler extends Handler {
         private WeakReference<Activity> mActivity;
 
@@ -413,8 +457,8 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         String money = "0";
 
         for (int i = 0; i < sallDrinks.size(); i++) {
-            DrinkBean bean = sallDrinks.get(i);
-            money = DecimalMath.add(money, DecimalMath.plus(bean.getCount(), bean.getPrice()));
+            ProductList.ProductsBean bean = sallDrinks.get(i);
+            money = DecimalMath.add(money, DecimalMath.plus(bean.getCount(), bean.getSellPrice()));
         }
         main_tv_price.setText("￥" + money);
     }
@@ -432,5 +476,160 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
+    }
+
+
+    /**
+     * 新增订单
+     */
+    private void postForm() {
+        if (sallDrinks.size() == 0) {
+            ToastManager.show("购物车是空的，请先选择商品");
+            return;
+        }
+
+
+        DailogUtil.showNetDialog(self);
+
+        OrderForm orderForm = new OrderForm();
+        try {
+            orderForm.setPayMethod("Cash");//CustomerBalance 会员卡
+            orderForm.setCustomerNumber("");
+            orderForm.setOrderDateTime(DateUtils.getCurrentdata());
+            orderForm.setContactAddress("");
+            orderForm.setContactName("");
+            orderForm.setContactTel("");
+
+            List<OrderForm.ItemsBean> items = new ArrayList<>();
+            for (int i = 0; i < sallDrinks.size(); i++) {
+                ProductList.ProductsBean pbean = sallDrinks.get(i);
+                OrderForm.ItemsBean ibean = new OrderForm.ItemsBean();
+                ibean.setProductUid(pbean.getUid());
+                ibean.setComment(pbean.getName());
+                ibean.setManualSellPrice(pbean.getSellPrice());
+                ibean.setQuantity(pbean.getCount() + "");
+                items.add(ibean);
+            }
+            orderForm.setItems(items);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        CommonApiProvider.getNetPostCommon(DomainUrl.Create_Order, "", new Gson().toJson(orderForm), new CommonResponse<String>() {
+            @Override
+            public void onSuccess(CommonRequest request, String data) {
+                super.onSuccess(request, data);
+                Logger.e("xx_api", data + "");
+                if (!TextUtils.isEmpty(data) && data.length() > 2) {
+                    try {
+                        JSONObject result = new JSONObject(data);
+                        if ("success".equals(result.optString("status"))) {
+                            OrderResult or = new Gson().fromJson(data, OrderResult.class);
+                            newOrder = or;
+
+                        } else {
+                            ToastManager.show("订单生成失败");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFail(int errorCode, String errorMsg) {
+                super.onFail(errorCode, errorMsg);
+            }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+                DailogUtil.closeNetDialog();
+            }
+        });
+    }
+
+
+    /**
+     * 完成订单
+     */
+    private void getCompleteOrder() {
+        if (newOrder == null) {
+            ToastManager.show("订单不存在");
+            return;
+        }
+        DailogUtil.showNetDialog(self);
+        JSONObject ob = new JSONObject();
+        try {
+            ob.put("orderNo", newOrder.getData().getOrderNo());
+            ob.put("shouldAddTicket", true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        CommonApiProvider.getNetGetCommon(DomainUrl.Choose_last_product, new CommonResponse<String>() {
+            @Override
+            public void onSuccess(CommonRequest request, String data) {
+                super.onSuccess(request, data);
+                Logger.e("xx_api", data + "");
+                if (!TextUtils.isEmpty(data) && data.length() > 2) {
+                    try {
+                        JSONObject result = new JSONObject(data);
+                        if ("success".equals(result.optString("status"))) {
+                            ToastManager.show("订单完成");
+                        } else {
+                            ToastManager.show("完成订单失败");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFail(int errorCode, String errorMsg) {
+                super.onFail(errorCode, errorMsg);
+            }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+                DailogUtil.closeNetDialog();
+            }
+        });
+    }
+
+
+    /**
+     * 获取随机卡片数据
+     */
+    private void getCardsData() {
+
+        DailogUtil.showNetDialog(self);
+        CommonApiProvider.getNetGetCommon(DomainUrl.Choose_last_product, new CommonResponse<String>() {
+            @Override
+            public void onSuccess(CommonRequest request, String data) {
+                super.onSuccess(request, data);
+                Logger.e("xx_api", data + "");
+                if (!TextUtils.isEmpty(data) && data.length() > 2) {
+                    RandomProduct product = new Gson().fromJson(data, RandomProduct.class);
+                }
+
+            }
+
+            @Override
+            public void onFail(int errorCode, String errorMsg) {
+                super.onFail(errorCode, errorMsg);
+            }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+                DailogUtil.closeNetDialog();
+            }
+        });
     }
 }

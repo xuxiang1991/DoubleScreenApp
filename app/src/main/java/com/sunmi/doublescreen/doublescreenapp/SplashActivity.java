@@ -17,13 +17,24 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.sunmi.doublescreen.doublescreenapp.bean.ProductList;
+import com.sunmi.doublescreen.doublescreenapp.network.config.DailogUtil;
+import com.sunmi.doublescreen.doublescreenapp.network.config.DomainUrl;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonApiProvider;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonRequest;
+import com.sunmi.doublescreen.doublescreenapp.network.service.CommonResponse;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -73,6 +84,77 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void transfer() {
+        getProducts();
+
+    }
+
+
+    /**
+     * 获取产品列表
+     */
+    private void getProducts() {
+        CommonApiProvider.getNetGetCommon(DomainUrl.Product_List, new CommonResponse<String>() {
+            @Override
+            public void onSuccess(CommonRequest request, String data) {
+                super.onSuccess(request, data);
+                if (!TextUtils.isEmpty(data) && data.length() > 2) {
+                    ProductList productList = new Gson().fromJson(data, ProductList.class);
+                    ruleProducts(productList);
+                }
+            }
+
+            @Override
+            public void onFail(int errorCode, String errorMsg) {
+                super.onFail(errorCode, errorMsg);
+            }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+            }
+        });
+    }
+
+
+    /**
+     * 整理热门产品和普通产品品
+     */
+    private void ruleProducts(ProductList productList) {
+        Config.hotPorducts.clear();
+        Config.comPorducts.clear();
+        if (productList == null || productList.getCategorys() == null || productList.getProducts() == null) {
+            return;
+        }
+        List<String> hotCategory = new ArrayList<>();
+        List<String> comCategory = new ArrayList<>();
+
+        for (int i = 0; i < productList.getCategorys().size(); i++) {
+            ProductList.CategorysBean categorysBean = productList.getCategorys().get(i);
+            if (!TextUtils.isEmpty(categorysBean.getName()) && categorysBean.getName().contains("主打")) {
+                hotCategory.add(categorysBean.getUid());
+            } else {
+                comCategory.add(categorysBean.getUid());
+            }
+        }
+
+
+        for (int j = 0; j < productList.getProducts().size(); j++) {
+            ProductList.ProductsBean productsBean = productList.getProducts().get(j);
+            if (hotCategory.contains(productsBean.getCategoryUid())) {
+                Config.hotPorducts.add(productsBean);
+            } else {
+                Config.comPorducts.add(productsBean);
+            }
+        }
+
+
+        goToNext();
+
+
+    }
+
+
+    private void goToNext() {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -87,7 +169,6 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000);
-
     }
 
     // 提示用户该请求权限的弹出框

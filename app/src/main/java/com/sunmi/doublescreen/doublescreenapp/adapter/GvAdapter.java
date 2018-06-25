@@ -1,7 +1,6 @@
 package com.sunmi.doublescreen.doublescreenapp.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.sunmi.doublescreen.doublescreenapp.R;
-import com.sunmi.doublescreen.doublescreenapp.bean.DrinkBean;
+import com.sunmi.doublescreen.doublescreenapp.bean.ProductList;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -30,10 +22,10 @@ import java.util.Map;
 public class GvAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<DrinkBean> mGvBeans;
+    private List<ProductList.ProductsBean> mGvBeans;
     private int mFlag;
 
-    public GvAdapter(Context context, List<DrinkBean> gvBeans, int flag) {
+    public GvAdapter(Context context, List<ProductList.ProductsBean> gvBeans, int flag) {
         this.mContext = context;
         this.mGvBeans = gvBeans;
         this.mFlag = flag;
@@ -70,7 +62,7 @@ public class GvAdapter extends BaseAdapter {
         }
 //        hold.ivPhoto.setImageResource(mGvBeans.get(position).getImgId());
         hold.tvName.setText(mGvBeans.get(position).getName());
-        hold.tvPrice.setText("¥"+mGvBeans.get(position).getPrice());
+        hold.tvPrice.setText("¥"+mGvBeans.get(position).getSellPrice());
 //        if (mFlag == 1) {
 //            if(MainActivity.isShowTime&&position==(mGvBeans.size()-1)){
 //                hold.tvUnit.setText("/"+ ResourcesUtils.getString(mContext,R.string.units_each));

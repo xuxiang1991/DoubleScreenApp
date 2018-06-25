@@ -169,7 +169,19 @@ public class DateUtils {
 		}
 		return date.getTime()/1000;
 	}
-	
+
+
+	/**
+	 * 获取当前时间
+	 *
+	 * @return
+	 */
+	public static String getCurrentdata()
+	{
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		return df.format(new Date());
+	}
+
 	/**
 	 * 将日期格式转化为时间戳(秒数)
 	 * @param time
