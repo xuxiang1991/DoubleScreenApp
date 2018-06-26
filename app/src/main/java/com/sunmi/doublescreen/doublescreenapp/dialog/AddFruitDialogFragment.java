@@ -190,13 +190,13 @@ public class AddFruitDialogFragment extends AppCompatDialogFragment implements V
     private void shoHotType(int hotType) {
         switch (hotType) {
             case 0:
-                ((RadioButton) getDialog().findViewById(R.id.rb_hot)).setChecked(true);
+                ((RadioButton)getView().findViewById(R.id.rb_hot)).setChecked(true);
                 break;
             case 1:
-                ((RadioButton) getDialog().findViewById(R.id.rb_ice)).setChecked(true);
+                ((RadioButton) getView().findViewById(R.id.rb_ice)).setChecked(true);
                 break;
             case 2:
-                ((RadioButton) getDialog().findViewById(R.id.rb_nomal)).setChecked(true);
+                ((RadioButton) getView().findViewById(R.id.rb_nomal)).setChecked(true);
                 break;
         }
 

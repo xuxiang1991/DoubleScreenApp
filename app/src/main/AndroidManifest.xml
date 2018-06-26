@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.sunmi.doublescreen.doublescreenapp">
+    package="com.sunmi.doublescreen.doublescreenapp">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--热敏打印start-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.hardware.usb.accessory" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--热敏打印end-->
+
+    <uses-feature android:name="android.hardware.usb.host" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -16,64 +32,130 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="sunmi_dual" android:value="open"/>
+        <meta-data
+            android:name="sunmi_dual"
+            android:value="open" />
+
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ViceActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".TaroActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".KMainActvity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".PictureActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".PlayVideoActivity"
             android:launchMode="standard"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".PlayVideosActivity"
             android:launchMode="standard"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ImgsActivity"
             android:launchMode="standard"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <receiver android:name="sunmi.ds.MsgReceiver">
             <intent-filter>
-                <action android:name="com.sunmi.hcservice"/>
-                <action android:name="com.sunmi.hcservice.status"/>
+                <action android:name="com.sunmi.hcservice" />
+                <action android:name="com.sunmi.hcservice.status" />
             </intent-filter>
         </receiver>
 
         <activity
             android:name=".VideoActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".VideosActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"></activity>
+
+
+
+
+        <!--热敏打印start-->
+
+
+        <receiver android:name=".boolkeyprint.DeviceBootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".boolkeyprint.PrinterConnectDialog"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light" >
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"
+                android:resource="@xml/device_filter" />
         </activity>
+        <!-- 端口设置对话 -->
+        <activity
+            android:name=".boolkeyprint.PortConfigurationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/port_configuration"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <!-- 蓝牙设备 -->
+        <activity
+            android:name=".boolkeyprint.BluetoothDeviceList"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/bluetooth_device_list"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <!-- USB设备 -->
+        <activity
+            android:name=".boolkeyprint.UsbDeviceList"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/usb_devices_list"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:name=".boolkeyprint.CustomerDiaplayActivity" >
+        </activity>
+
+        <service
+            android:name="com.gprinter.service.GpPrintService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="GpPrintService" >
+            <intent-filter>
+                <action android:name="com.gprinter.aidl.GpPrintService" />
+            </intent-filter>
+        </service>
+        <service android:name="com.gprinter.service.AllService" >
+        </service>
+        <!--热敏打印end-->
+
     </application>
 
 </manifest>
