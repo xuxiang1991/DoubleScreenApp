@@ -57,6 +57,7 @@ import com.sunmi.doublescreen.doublescreenapp.network.service.CommonResponse;
 import com.sunmi.doublescreen.doublescreenapp.toast.ToastManager;
 import com.sunmi.doublescreen.doublescreenapp.utils.DateUtils;
 import com.sunmi.doublescreen.doublescreenapp.utils.DecimalMath;
+import com.sunmi.doublescreen.doublescreenapp.utils.SharePreferenceUtil;
 import com.sunmi.doublescreen.doublescreenapp.view.MyGridView;
 
 import org.json.JSONException;
@@ -123,6 +124,11 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     private PayDialog payDialog;
 
     private OrderResult newOrder = null;
+
+    /**
+     * 订单编号
+     */
+    private int orderNo;
 
     private IConnectionCallback mIConnectionCallback = new IConnectionCallback() {
         @Override
@@ -282,7 +288,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData() {
-
+        orderNo = (int) SharePreferenceUtil.getParam(this, "orderNo", 1);
 
         myHandler = new MyHandler(this);
 
@@ -336,6 +342,14 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         mDSKernel = DSKernel.newInstance();
         mDSKernel.init(this, mIConnectionCallback);
         mDSKernel.addReceiveCallback(mIReceiveCallback);
+    }
+
+    /**
+     * 订单号+1
+     */
+    private void updateOrderNO() {
+        orderNo++;
+        SharePreferenceUtil.setParam(this, "orderNo", orderNo);
     }
 
     @Override
@@ -1110,7 +1124,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         tsc.addCls();// 清除打印缓冲区
         // 绘制简体中文
         tsc.addText(40, 10, LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE, LabelCommand.ROTATION.ROTATION_0, LabelCommand.FONTMUL.MUL_1, LabelCommand.FONTMUL.MUL_1,
-                bean.getName() + " 冰  中杯");
+                orderNo + " " + bean.getName() + " 冰  中杯");
 //        // 绘制图片
 //        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.gprinter);
 //        tsc.addBitmap(20, 50, BITMAP_MODE.OVERWRITE, b.getWidth(), b);
@@ -1178,8 +1192,8 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
 //                mTotalCopies = sallDrinks.size() - 1;
 //                sendReceiptWithResponse();
 //            } else if (type == GpCom.LABEL_COMMAND) {
-                mTotalCopies = sallDrinks.size() - 1;
-                sendLabelWithResponse(mTotalCopies);
+            mTotalCopies = sallDrinks.size() - 1;
+            sendLabelWithResponse(mTotalCopies);
 //            } else {
 //                Toast.makeText(this, "Printer is not receipt mode", Toast.LENGTH_SHORT).show();
 //            }

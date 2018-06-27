@@ -182,6 +182,18 @@ public class DateUtils {
 		return df.format(new Date());
 	}
 
+
+	/**
+	 * 获取当前时间
+	 *
+	 * @return
+	 */
+	public static String getCurrentDay()
+	{
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+		return df.format(new Date());
+	}
+
 	/**
 	 * 将日期格式转化为时间戳(秒数)
 	 * @param time

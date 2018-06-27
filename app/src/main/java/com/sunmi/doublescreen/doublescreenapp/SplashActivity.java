@@ -29,6 +29,8 @@ import com.sunmi.doublescreen.doublescreenapp.network.config.DomainUrl;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonApiProvider;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonRequest;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonResponse;
+import com.sunmi.doublescreen.doublescreenapp.utils.DateUtils;
+import com.sunmi.doublescreen.doublescreenapp.utils.SharePreferenceUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,6 +52,8 @@ public class SplashActivity extends AppCompatActivity {
     private final int permissionRequestCode = 0x1;
     private AlertDialog dialog;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,21 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             iv.setImageResource(R.drawable.img_03);
         }
+
+        Object today=SharePreferenceUtil.getParam(this,"today", DateUtils.getCurrentDay());
+        if (today==null)
+        {
+            SharePreferenceUtil.setParam(this,"today",DateUtils.getCurrentDay());
+            SharePreferenceUtil.setParam(this,"orderNo",1);
+        }else {
+            String todayStr=today.toString();
+            if (!todayStr.equals(DateUtils.getCurrentDay()))
+            {
+                SharePreferenceUtil.setParam(this,"today",DateUtils.getCurrentDay());
+                SharePreferenceUtil.setParam(this,"orderNo",1);
+            }
+        }
+
 
         /**
          * 版本判断，大于23的时候才需要动态申请权限
