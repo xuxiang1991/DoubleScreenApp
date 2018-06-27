@@ -56,13 +56,15 @@ public class GvAdapter extends BaseAdapter {
             hold.tvName = (TextView) convertView.findViewById(R.id.tv_name);
             hold.tvPrice = (TextView) convertView.findViewById(R.id.tv_price);
             hold.tvUnit = (TextView) convertView.findViewById(R.id.tv_unit);
+            hold.tv_description = (TextView) convertView.findViewById(R.id.tv_description);
             convertView.setTag(hold);
         } else {
             hold = (ViewHold) convertView.getTag();
         }
 //        hold.ivPhoto.setImageResource(mGvBeans.get(position).getImgId());
         hold.tvName.setText(mGvBeans.get(position).getName());
-        hold.tvPrice.setText("¥"+mGvBeans.get(position).getSellPrice());
+        hold.tvPrice.setText("¥" + mGvBeans.get(position).getSellPrice());
+        hold.tv_description.setText(mGvBeans.get(position).getDescription() + "");
 //        if (mFlag == 1) {
 //            if(MainActivity.isShowTime&&position==(mGvBeans.size()-1)){
 //                hold.tvUnit.setText("/"+ ResourcesUtils.getString(mContext,R.string.units_each));
@@ -81,10 +83,8 @@ public class GvAdapter extends BaseAdapter {
         private TextView tvName;
         private TextView tvPrice;
         private TextView tvUnit;
+        private TextView tv_description;
     }
-
-
-
 
 
 }
