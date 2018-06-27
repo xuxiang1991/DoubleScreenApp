@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.sunmi.doublescreen.doublescreenapp.smprinter.AidlUtil;
 import com.sunmi.doublescreen.doublescreenapp.utils.CrashHandler;
 
 /**
@@ -26,7 +27,15 @@ public class MyApplication extends Application {
     }
 
 
+    private boolean isAidl;
 
+    public boolean isAidl() {
+        return isAidl;
+    }
+
+    public void setAidl(boolean aidl) {
+        isAidl = aidl;
+    }
 
 
     @Override
@@ -47,6 +56,9 @@ public class MyApplication extends Application {
 //            }).start();
 //        }
         initDeviceInfo();
+        //商米打印机
+        isAidl = true;
+        AidlUtil.getInstance().connectPrinterService(this);
     }
 
 

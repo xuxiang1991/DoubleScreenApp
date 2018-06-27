@@ -59,7 +59,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.afollestad.material-dialogs:core:0.9.4.2'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
-
+    compile 'com.sunmi:sunmiui:latest.release'
 
     compile "com.android.support:support-v4:$rootProject.appcompatVersion"
     compile "com.android.support:support-v13:$rootProject.appcompatVersion"

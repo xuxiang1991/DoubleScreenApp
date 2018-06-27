@@ -54,6 +54,9 @@ import com.sunmi.doublescreen.doublescreenapp.network.config.DomainUrl;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonApiProvider;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonRequest;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonResponse;
+import com.sunmi.doublescreen.doublescreenapp.smprinter.AidlUtil;
+import com.sunmi.doublescreen.doublescreenapp.smprinter.BluetoothUtil;
+import com.sunmi.doublescreen.doublescreenapp.smprinter.ESCUtil;
 import com.sunmi.doublescreen.doublescreenapp.toast.ToastManager;
 import com.sunmi.doublescreen.doublescreenapp.utils.DateUtils;
 import com.sunmi.doublescreen.doublescreenapp.utils.DecimalMath;
@@ -63,6 +66,7 @@ import com.sunmi.doublescreen.doublescreenapp.view.MyGridView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +89,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     private final String TAG = KMainActvity.class.getSimpleName();
     //双屏通讯帮助类
     private DSKernel mDSKernel = null;
-
+    MyApplication baseApp;
     private Handler myHandler;
     private final String picturePath = Environment.getExternalStorageDirectory().getPath() + "/img_01.png";
     private ProgressDialog dialog;
@@ -192,11 +196,13 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         self = this;
+        baseApp = (MyApplication) getApplication();
         setContentView(R.layout.activity_kmain);
         initData();
         initSdk();
         initView();
         initBooltoothPrint();
+        AidlUtil.getInstance().initPrinter();//初始化打印机
 
     }
 
@@ -1216,4 +1222,92 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         }
         unregisterReceiver(mBroadcastReceiver);
     }
+//=============================================商米打印===============================
+
+    public void smPrint(String content) {
+
+        if (baseApp.isAidl()) {
+            AidlUtil.getInstance().printText(content, 14, false, false);
+        } else {
+            printByBluTooth(content);
+        }
+    }
+
+    private void printByBluTooth(String content) {
+//        try {
+////            if (isBold) {
+////                BluetoothUtil.sendData(ESCUtil.boldOn());
+////            } else {
+//                BluetoothUtil.sendData(ESCUtil.boldOff());
+////            }
+//
+////            if (isUnderLine) {
+////                BluetoothUtil.sendData(ESCUtil.underlineWithOneDotWidthOn());
+////            } else {
+//                BluetoothUtil.sendData(ESCUtil.underlineOff());
+////            }
+//
+//            if (record < 17) {
+//                BluetoothUtil.sendData(ESCUtil.singleByte());
+//                BluetoothUtil.sendData(ESCUtil.setCodeSystemSingle(codeParse(record)));
+//            } else {
+//                BluetoothUtil.sendData(ESCUtil.singleByteOff());
+//                BluetoothUtil.sendData(ESCUtil.setCodeSystem(codeParse(record)));
+//            }
+//
+//            BluetoothUtil.sendData(content.getBytes(mStrings[record]));
+//            BluetoothUtil.sendData(ESCUtil.nextLine(3));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private byte codeParse(int value) {
+        byte res = 0x00;
+        switch (value) {
+            case 0:
+                res = 0x00;
+                break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                res = (byte) (value + 1);
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+                res = (byte) (value + 8);
+                break;
+            case 12:
+                res = 21;
+                break;
+            case 13:
+                res = 33;
+                break;
+            case 14:
+                res = 34;
+                break;
+            case 15:
+                res = 36;
+                break;
+            case 16:
+                res = 37;
+                break;
+            case 17:
+            case 18:
+            case 19:
+                res = (byte) (value - 17);
+                break;
+            case 20:
+                res = (byte) 0xff;
+                break;
+        }
+        return (byte) res;
+    }
+
 }
