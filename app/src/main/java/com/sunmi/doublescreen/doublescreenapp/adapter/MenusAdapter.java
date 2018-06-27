@@ -97,7 +97,7 @@ public class MenusAdapter extends BaseAdapter {
      * @param hotype
      * @return
      */
-    private String getHot(int hotype) {
+    public static String getHot(int hotype) {
         if (hotype == 0) {
             return "热";
         } else if (hotype == 1) {
@@ -114,7 +114,7 @@ public class MenusAdapter extends BaseAdapter {
      * @param boxType
      * @return
      */
-    private String getSize(int boxType) {
+    public static String getSize(int boxType) {
         if (boxType == 0) {
             return "小杯";
         } else if (boxType == 1) {

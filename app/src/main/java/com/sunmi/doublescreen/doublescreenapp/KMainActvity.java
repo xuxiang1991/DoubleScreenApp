@@ -1224,6 +1224,29 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     }
 //=============================================商米打印===============================
 
+
+    /**
+     * 打印订单信息
+     *
+     * @return
+     */
+    public String getPrintContent() {
+
+        String contentStr = "订单号：" + orderNo + "\n" +
+                "时间：" + DateUtils.getCurrentdata() + "\n" +
+                "=================================\n" +
+                "订单详情：\n";
+        for (int i = 0; i < sallDrinks.size(); i++) {
+            ProductList.ProductsBean bean = sallDrinks.get(i);
+            contentStr = contentStr + bean.getName() + "   " + MenusAdapter.getSize(bean.getBoxType()) + "  " + MenusAdapter.getHot(bean.getHotType()) + "  X" + bean.getCount() + "\n";
+        }
+
+        contentStr = contentStr + "=================================";
+        return contentStr;
+
+    }
+
+
     public void smPrint(String content) {
 
         if (baseApp.isAidl()) {
