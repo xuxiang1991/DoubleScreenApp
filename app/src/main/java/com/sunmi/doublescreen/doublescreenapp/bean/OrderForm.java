@@ -34,6 +34,16 @@ public class OrderForm implements Serializable{
     private String contactAddress;
     private String contactName;
     private String contactTel;
+    private String orderNo;
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
     private List<ItemsBean> items;
 
     public String getAppId() {

@@ -182,6 +182,17 @@ public class DateUtils {
 		return df.format(new Date());
 	}
 
+	/**
+	 * 获取当前时间
+	 *
+	 * @return
+	 */
+	public static String getShortDay()
+	{
+		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
+		return df.format(new Date());
+	}
+
 
 	/**
 	 * 获取当前时间

@@ -32,6 +32,7 @@ import javax.net.ssl.SSLSession;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -81,7 +82,7 @@ public class CommonApiProvider {
             }
         });
         okHttpBuilder.followRedirects(true);//允许被重定向
-        okHttpBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+//        okHttpBuilder.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
         okHttpBuilder.cache(cache);
 
         okHttpClient = okHttpBuilder.build();
@@ -153,51 +154,22 @@ public class CommonApiProvider {
      * @param response 回调
      */
     public static void getNetPostCommon(final String url, final String action, final String paramArr, CommonResponse response) {
-        MultipartBody.Builder builder = new MultipartBody.Builder();
-        //设置类型
-        builder.setType(MultipartBody.FORM);
-
-        try {
-//            String ency = Aes.encryptContent(getparamArr(paramArr, action), EncryptionType, KEY, ENCODING);
-//            builder.addFormDataPart("request", ency);
-
-            builder.addFormDataPart("body",paramArr);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        RequestBody body = builder.build();
+        RequestBody formBody = new FormBody.Builder().add("body", paramArr)
+                .build();
 
         final OkhttpWrapperResponse wrapperResponse = new OkhttpWrapperResponse(response, sConverts, action);
-
-
-
-
 
         OkHttpClient client = new OkHttpClient();
 
         Call call;
         final Request request = new Request.Builder().
-                url(url).post(body).build();
+                url(url).post(formBody).build();
 
-        if ("https".equals(URI.create(url).getScheme().toLowerCase())) {
-            //参数为NULL设置可访问所有的https网站 ，这里可以支持自签名证书
-            HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
-            call = client.newBuilder().
-                    sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager).hostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            }).build().newCall(request);
-        } else {
-            call = client.newBuilder().build().newCall(request);
-        }
+        call = client.newBuilder().build().newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                    wrapperResponse.onFail(HttpFailTip.NETWORK_ERROR, HttpFailTip.getFailTipMessage(HttpFailTip.NETWORK_ERROR));
+                wrapperResponse.onFail(HttpFailTip.NETWORK_ERROR, HttpFailTip.getFailTipMessage(HttpFailTip.NETWORK_ERROR));
             }
 
             @Override
@@ -358,7 +330,7 @@ public class CommonApiProvider {
             try {
 //                String ency = Aes.encryptContent(getparamArr(paramArr, action), EncryptionType, KEY, ENCODING);
 //                builder.addFormDataPart("request", ency);
-                                builder.addFormDataPart("request", paramArr);
+                builder.addFormDataPart("request", paramArr);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -435,7 +407,7 @@ public class CommonApiProvider {
             return;
         }
 
-        final String fileName = MD5Util.MD5Encode("fileUrl",null);
+        final String fileName = MD5Util.MD5Encode("fileUrl", null);
         final File file = new File(fileDir, fileName);
         if (file.exists()) {
             file.delete();

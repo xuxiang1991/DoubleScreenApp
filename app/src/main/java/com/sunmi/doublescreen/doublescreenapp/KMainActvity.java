@@ -116,6 +116,11 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
      */
     private List<ProductList.ProductsBean> sallDrinks = new ArrayList<>();
 
+    /**
+     * 打印项目
+     */
+    private List<ProductList.ProductsBean> printDrinks = new ArrayList<>();
+
     private GvAdapter hotAdapter;
     private GvAdapter comAdapter;
     private MenusAdapter menusAdapter;
@@ -128,6 +133,10 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     private PayDialog payDialog;
 
     private OrderResult newOrder = null;
+    /**
+     * 总金额
+     */
+    private String totalMoney = "0.00";
 
     /**
      * 订单编号
@@ -323,11 +332,19 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onSuccess() {
+                updateOrderNO();
+                printTestClicked();
+                smPrint(getPrintContent());
+                getCompleteOrder();
+
 
             }
 
             @Override
             public void onComplete() {
+
+                sallDrinks.clear();
+                updateTotalMoney();
 //                menus.clear();
 //                tvCarMoeny.setText("");
 //                tvCar.setText("");
@@ -408,14 +425,13 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                 printDialog.show(getSupportFragmentManager(), "");
                 break;
             case R.id.main_btn_pay:
-//                if (sallDrinks.size() > 0) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("MONEY", "96.00");
-//                    payDialog.setArguments(bundle);
-//                    payDialog.show(getSupportFragmentManager(), "payDialog");
-//                }
 
-                printTestClicked();
+
+                if (sallDrinks.size() > 0) {
+                    postForm();
+                }
+
+//                printTestClicked();
 
 
                 break;
@@ -515,6 +531,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
             ProductList.ProductsBean bean = sallDrinks.get(i);
             money = DecimalMath.add(money, DecimalMath.plus(bean.getCount(), bean.getSellPrice()));
         }
+        totalMoney = money;
         main_tv_price.setText("￥" + money);
     }
 
@@ -535,6 +552,25 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
 
 
     /**
+     * 设置打印项目
+     */
+    private void setPrintDrinks()
+    {
+        printDrinks.clear();
+        for (int i=0;i<sallDrinks.size();i++)
+        {
+            ProductList.ProductsBean productsBean=sallDrinks.get(i);
+            for (int j=0;j<productsBean.getCount();j++)
+            {
+                ProductList.ProductsBean bean=productsBean.getCopy();
+                bean.setCount(1);
+                printDrinks.add(bean);
+            }
+        }
+
+    }
+
+    /**
      * 新增订单
      */
     private void postForm() {
@@ -549,11 +585,12 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         OrderForm orderForm = new OrderForm();
         try {
             orderForm.setPayMethod("Cash");//CustomerBalance 会员卡
-            orderForm.setCustomerNumber("");
+            orderForm.setCustomerNumber("1001");
             orderForm.setOrderDateTime(DateUtils.getCurrentdata());
-            orderForm.setContactAddress("");
-            orderForm.setContactName("");
-            orderForm.setContactTel("");
+            orderForm.setContactAddress("常熟");
+            orderForm.setContactName("测试");
+            orderForm.setContactTel("13962325335");
+            orderForm.setOrderNo(DateUtils.getShortDay() + orderNo);
 
             List<OrderForm.ItemsBean> items = new ArrayList<>();
             for (int i = 0; i < sallDrinks.size(); i++) {
@@ -581,6 +618,8 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                         if ("success".equals(result.optString("status"))) {
                             OrderResult or = new Gson().fromJson(data, OrderResult.class);
                             newOrder = or;
+                            setPrintDrinks();
+                            gotoPay();
 
                         } else {
                             ToastManager.show("订单生成失败");
@@ -607,6 +646,17 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
 
 
     /**
+     * 去支付
+     */
+    private void gotoPay() {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("MONEY", totalMoney);
+        payDialog.setArguments(bundle);
+        payDialog.show(getSupportFragmentManager(), "payDialog");
+    }
+
+    /**
      * 完成订单
      */
     private void getCompleteOrder() {
@@ -624,7 +674,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        CommonApiProvider.getNetGetCommon(DomainUrl.Complete_Order, new CommonResponse<String>() {
+        CommonApiProvider.getNetPostCommon(DomainUrl.Complete_Order, "", ob.toString(), new CommonResponse<String>() {
             @Override
             public void onSuccess(CommonRequest request, String data) {
                 super.onSuccess(request, data);
@@ -633,6 +683,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                     try {
                         JSONObject result = new JSONObject(data);
                         if ("success".equals(result.optString("status"))) {
+                            newOrder = null;
                             ToastManager.show("订单完成");
                         } else {
                             ToastManager.show("完成订单失败");
@@ -1117,7 +1168,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     }
 
     void sendLabelWithResponse(int index) {
-        ProductList.ProductsBean bean = sallDrinks.get(index);
+        ProductList.ProductsBean bean = printDrinks.get(index);
 
         LabelCommand tsc = new LabelCommand();
         tsc.addSize(40, 30); // 设置标签尺寸，按照实际尺寸设置
@@ -1130,7 +1181,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         tsc.addCls();// 清除打印缓冲区
         // 绘制简体中文
         tsc.addText(40, 10, LabelCommand.FONTTYPE.SIMPLIFIED_CHINESE, LabelCommand.ROTATION.ROTATION_0, LabelCommand.FONTMUL.MUL_1, LabelCommand.FONTMUL.MUL_1,
-                orderNo + " " + bean.getName() + " 冰  中杯");
+                (orderNo - 1) + " " + bean.getName() + " 冰  中杯");
 //        // 绘制图片
 //        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.gprinter);
 //        tsc.addBitmap(20, 50, BITMAP_MODE.OVERWRITE, b.getWidth(), b);
@@ -1190,7 +1241,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     public void printTestClicked() {
         try {
 
-            if (sallDrinks.size() == 0) {
+            if (printDrinks.size() == 0) {
                 return;
             }
 //            int type = mGpService.getPrinterCommandType(mPrinterIndex);
@@ -1198,7 +1249,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
 //                mTotalCopies = sallDrinks.size() - 1;
 //                sendReceiptWithResponse();
 //            } else if (type == GpCom.LABEL_COMMAND) {
-            mTotalCopies = sallDrinks.size() - 1;
+            mTotalCopies = printDrinks.size() - 1;
             sendLabelWithResponse(mTotalCopies);
 //            } else {
 //                Toast.makeText(this, "Printer is not receipt mode", Toast.LENGTH_SHORT).show();
@@ -1232,12 +1283,12 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
      */
     public String getPrintContent() {
 
-        String contentStr = "订单号：" + orderNo + "\n" +
+        String contentStr = "订单号：" + (orderNo - 1) + "\n" +
                 "时间：" + DateUtils.getCurrentdata() + "\n" +
                 "=================================\n" +
                 "订单详情：\n";
-        for (int i = 0; i < sallDrinks.size(); i++) {
-            ProductList.ProductsBean bean = sallDrinks.get(i);
+        for (int i = 0; i < printDrinks.size(); i++) {
+            ProductList.ProductsBean bean = printDrinks.get(i);
             contentStr = contentStr + bean.getName() + "   " + MenusAdapter.getSize(bean.getBoxType()) + "  " + MenusAdapter.getHot(bean.getHotType()) + "  X" + bean.getCount() + "\n";
         }
 

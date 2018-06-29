@@ -112,6 +112,14 @@ public class LoadingImgUtil {
                 .into(imgview);
     }
 
+    public static void loadProductImg(String url, ImageView imgview) {
+        Glide.with(MyApplication.getInstance()).load(url)
+                .placeholder(R.drawable.coco)
+                .error(R.drawable.coco)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(imgview);
+    }
+
     /**
      * 加载欢迎页
      *

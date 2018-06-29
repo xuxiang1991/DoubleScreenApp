@@ -14,6 +14,15 @@ public class ProductList implements Serializable {
 
     private List<CategorysBean> categorys;
     private List<ProductsBean> products;
+    private List<ImagesBean> images;
+
+    public List<ImagesBean> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImagesBean> images) {
+        this.images = images;
+    }
 
     public List<CategorysBean> getCategorys() {
         return categorys;
@@ -30,6 +39,55 @@ public class ProductList implements Serializable {
     public void setProducts(List<ProductsBean> products) {
         this.products = products;
     }
+
+
+    public static class ImagesBean implements Serializable{
+
+        /**
+         * productBarcode : 1806261556336
+         * productName : 双料奶绿
+         * imageUrl : http://pospalstoreimg.area20.pospal.cn:80/productImages/3362227/4af617c6-d095-4f2a-a512-3d533209c3da.png
+         * productUid : 291904430992086803
+         */
+
+        private String productBarcode;
+        private String productName;
+        private String imageUrl;
+        private String productUid;
+
+        public String getProductBarcode() {
+            return productBarcode;
+        }
+
+        public void setProductBarcode(String productBarcode) {
+            this.productBarcode = productBarcode;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+
+        public String getProductUid() {
+            return productUid;
+        }
+
+        public void setProductUid(String productUid) {
+            this.productUid = productUid;
+        }
+    }
+
 
     public static class CategorysBean implements Serializable {
         /**
@@ -106,6 +164,15 @@ public class ProductList implements Serializable {
         private int boxType;
         private String url;//随机网页
         private String sign;//签名
+        private String imageUrl;
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
 
         public String getSign() {
             return sign;
@@ -287,8 +354,12 @@ public class ProductList implements Serializable {
             bean.setHotType(this.getHotType());
             bean.setIsCustomerDiscount(this.getIsCustomerDiscount());
             bean.setName(this.getName());
-            bean.setPinyin(this.pinyin);
-            bean.setStock(this.stock);
+            bean.setPinyin(this.getPinyin());
+            bean.setStock(this.getStock());
+            bean.setUrl(this.getUrl());
+            bean.setSign(this.getSign());
+            bean.setImageUrl(this.getImageUrl());
+
             return bean;
         }
     }

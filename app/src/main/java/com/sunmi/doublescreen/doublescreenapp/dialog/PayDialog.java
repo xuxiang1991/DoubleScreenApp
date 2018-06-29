@@ -146,6 +146,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                 llyPayComplete.setVisibility(View.VISIBLE);
                 if (completeListener != null) {
                     completeListener.onSuccess();
+                    completeListener.onComplete();
                 }
                 break;
             case R.id.btn_complete:

@@ -1,6 +1,7 @@
 package com.sunmi.doublescreen.doublescreenapp.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.sunmi.doublescreen.doublescreenapp.R;
 import com.sunmi.doublescreen.doublescreenapp.bean.ProductList;
+import com.sunmi.doublescreen.doublescreenapp.img.LoadingImgUtil;
 
 import java.util.List;
 
@@ -65,6 +67,13 @@ public class GvAdapter extends BaseAdapter {
         hold.tvName.setText(mGvBeans.get(position).getName());
         hold.tvPrice.setText("¥" + mGvBeans.get(position).getSellPrice());
         hold.tv_description.setText(mGvBeans.get(position).getDescription() + "");
+        if (TextUtils.isEmpty(mGvBeans.get(position).getImageUrl()))
+        {
+            hold.ivPhoto.setImageResource(R.drawable.coco);
+        }else
+        {
+            LoadingImgUtil.loadProductImg(mGvBeans.get(position).getImageUrl(),hold.ivPhoto);
+        }
 //        if (mFlag == 1) {
 //            if(MainActivity.isShowTime&&position==(mGvBeans.size()-1)){
 //                hold.tvUnit.setText("/"+ ResourcesUtils.getString(mContext,R.string.units_each));

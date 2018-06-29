@@ -116,6 +116,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(CommonRequest request, String data) {
                 super.onSuccess(request, data);
+                Logger.e("xx_api",data);
                 if (!TextUtils.isEmpty(data) && data.length() > 2) {
                     ProductList productList = new Gson().fromJson(data, ProductList.class);
                     ruleProducts(productList);
@@ -146,6 +147,22 @@ public class SplashActivity extends AppCompatActivity {
         }
         List<String> hotCategory = new ArrayList<>();
         List<String> comCategory = new ArrayList<>();
+
+        if (productList.getImages()!=null&&productList.getImages().size()>0)
+        {
+            for (int i=0;i<productList.getImages().size();i++)
+            {
+                ProductList.ImagesBean imagesBean=productList.getImages().get(i);
+                for (int j=0;j<productList.getProducts().size();j++)
+                {
+                    ProductList.ProductsBean productsBean=productList.getProducts().get(j);
+                    if (imagesBean.getProductUid().equals(productsBean.getUid()))
+                    {
+                        productsBean.setImageUrl(imagesBean.getImageUrl());
+                    }
+                }
+            }
+        }
 
         for (int i = 0; i < productList.getCategorys().size(); i++) {
             ProductList.CategorysBean categorysBean = productList.getCategorys().get(i);
@@ -178,11 +195,11 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent;
-                if (isMain) {
+//                if (isMain) {
                     intent = new Intent(SplashActivity.this, KMainActvity.class);
-                } else {
-                    intent = new Intent(SplashActivity.this, TaroActivity.class);
-                }
+//                } else {
+//                    intent = new Intent(SplashActivity.this, TaroActivity.class);
+//                }
 
                 startActivity(intent);
                 finish();
