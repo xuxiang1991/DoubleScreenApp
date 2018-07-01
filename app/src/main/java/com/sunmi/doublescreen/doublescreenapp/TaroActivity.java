@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sunmi.doublescreen.doublescreenapp.bean.CardMove;
 import com.sunmi.doublescreen.doublescreenapp.bean.RandomProduct;
 import com.sunmi.doublescreen.doublescreenapp.data.Data;
@@ -31,7 +32,10 @@ import com.sunmi.doublescreen.doublescreenapp.network.config.DomainUrl;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonApiProvider;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonRequest;
 import com.sunmi.doublescreen.doublescreenapp.network.service.CommonResponse;
+import com.sunmi.doublescreen.doublescreenapp.toast.ToastManager;
 import com.sunmi.doublescreen.doublescreenapp.utils.FileUtils;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,7 +96,10 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 最后选中的奶茶
      */
-    private String lastSelectTea = "";
+    private RandomProduct.DataBean lastSelectTea = null;
+
+    private boolean isHot = false;
+    private boolean islove = false;
 
 
     private IConnectionCallback mIConnectionCallback = new IConnectionCallback() {
@@ -221,6 +228,9 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
                     showBusiness();
 //                    Toast.makeText(TaroActivity.this, "副屏收到"+String.valueOf(data.data),Toast.LENGTH_LONG).show();
 //                    mDSKernel.sendResult(cmd.sender, data.data+"", cmd.taskId, null);
+                case LASTTEA:
+                    lastSelectTea = new Gson().fromJson(data.data, RandomProduct.DataBean.class);
+
                     break;
                 default:
                     break;
@@ -287,15 +297,21 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.img_love:
+                showHot();
+                islove = true;
+                break;
             case R.id.img_business:
+                islove = false;
                 showHot();
                 break;
             case R.id.img_hot:
                 hotType = 0;
+                isHot = true;
                 showDrinks();
                 break;
             case R.id.img_ice:
                 hotType = 1;
+                isHot = false;
                 showDrinks();
                 break;
             case R.id.iv_back:
@@ -398,10 +414,22 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         rl_select.setVisibility(View.GONE);
         ivBack.setVisibility(View.GONE);
 
+        if (!TextUtils.isEmpty(sender)) {
+            JSONObject object = new JSONObject();
+            try {
+                object.put("hotorcold", isHot ? "冷饮" : "热饮");
+                object.put("loveorwork", islove ? "爱情" : "事业");
+                object.put("count", 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mDSKernel.sendResult(sender, object.toString(), taskid, null);
+            ToastManager.show(object.toString());
+        }
         rl_drink.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getlastCardData();
+//                getlastCardData();
                 goTocenter();
             }
         }, 1);
@@ -525,13 +553,14 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
         animatorSet.start();
 
         if (!TextUtils.isEmpty(sender)) {
-            mDSKernel.sendResult(sender, lastSelectTea, taskid, null);
+            mDSKernel.sendResult(sender, "1", taskid, null);
         }
 
         rl_drink.postDelayed(new Runnable() {
             @Override
             public void run() {
-                tv_drink_id.setText("2");
+                tv_drink_id.setText(lastSelectTea.getSign());
+                tv_drink_name.setText(lastSelectTea.getName());
                 tv_drink_id.setVisibility(View.VISIBLE);
                 tv_drink_name.setVisibility(View.VISIBLE);
             }
@@ -572,34 +601,35 @@ public class TaroActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    /**
-     * 获取一杯奶茶数据
-     */
-    private void getlastCardData() {
-
-        CommonApiProvider.getNetGetCommon(DomainUrl.Choose_last_product, new CommonResponse<String>() {
-            @Override
-            public void onSuccess(CommonRequest request, String data) {
-                super.onSuccess(request, data);
-                Logger.e("xx_api", data + "");
-                if (!TextUtils.isEmpty(data) && data.length() > 2) {
-                    RandomProduct product = new Gson().fromJson(data, RandomProduct.class);
-                    product.setHotType(hotType);
-                    lastSelectTea = new Gson().toJson(product);
-                }
-
-            }
-
-            @Override
-            public void onFail(int errorCode, String errorMsg) {
-                super.onFail(errorCode, errorMsg);
-            }
-
-            @Override
-            public void onComplete() {
-                super.onComplete();
-            }
-        });
-    }
+//    /**
+//     * 获取一杯奶茶数据
+//     */
+//    private void getlastCardData() {
+//
+//        CommonApiProvider.getNetGetCommon(DomainUrl.Choose_last_product, new CommonResponse<String>() {
+//            @Override
+//            public void onSuccess(CommonRequest request, String data) {
+//                super.onSuccess(request, data);
+//                Logger.e("xx_api", data + "");
+//                ToastManager.show(data + "");
+//                if (!TextUtils.isEmpty(data) && data.length() > 2) {
+//                    RandomProduct product = new Gson().fromJson(data, RandomProduct.class);
+//                    product.setHotType(hotType);
+//                    lastSelectTea = new Gson().toJson(product);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFail(int errorCode, String errorMsg) {
+//                super.onFail(errorCode, errorMsg);
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                super.onComplete();
+//            }
+//        });
+//    }
 
 }

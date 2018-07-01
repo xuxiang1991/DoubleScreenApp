@@ -25,7 +25,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp"
+            android:layout_height="80dp"
             android:layout_marginBottom="14.66dp"
             android:layout_marginLeft="13.33dp"
             android:layout_marginRight="13.33dp"
@@ -38,7 +38,7 @@
                 android:layout_alignParentLeft="true"
                 android:text="@string/goods_red_bull"
                 android:textColor="@color/yun_qi_text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"

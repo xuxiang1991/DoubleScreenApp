@@ -47,7 +47,8 @@ public enum DataModel {
     VIDEOS(DataType.CMD, 0x213),//播放多个视频
     MENUVIDEOS(DataType.CMD, 0x214),//播放多个视频加清单文件
     GETVICECACHEFILESIZE(DataType.CMD, 0x215),
-    GETTEA(DataType.CMD, 0x444)
+    GETTEA(DataType.CMD, 0x444),
+    LASTTEA(DataType.CMD, 0x445)
     ;//获取主屏应用在副屏缓存文件大小
 
 

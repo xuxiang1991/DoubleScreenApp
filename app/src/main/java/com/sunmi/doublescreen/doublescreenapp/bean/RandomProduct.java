@@ -1,6 +1,7 @@
 package com.sunmi.doublescreen.doublescreenapp.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 类名称：随机产品
@@ -11,56 +12,69 @@ import java.io.Serializable;
 public class RandomProduct implements Serializable {
 
 
-    /**
-     * sign : 07
-     * qrurl :
-     * barcode : 1806231415458
-     */
+    private List<DataBean> data;
 
-    private String sign;
-    private String qrurl;
-    private String barcode;
-    private String uid;
-    private int hotType;//0 热 1 冷 2 常温
-
-
-    public String getUid() {
-        return uid;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public int getHotType() {
-        return hotType;
-    }
+    public static class DataBean implements Serializable{
+        /**
+         * sign : 87
+         * barcode : 1806261529101
+         * name : 珍珠奶茶
+         * qrurl : http://www.5dsq.com/tea/admin/detail?id=10
+         */
 
-    public void setHotType(int hotType) {
-        this.hotType = hotType;
-    }
+        private String sign;
+        private String barcode;
+        private String name;
+        private String qrurl;
+        private int hotType;
 
-    public String getSign() {
-        return sign;
-    }
 
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
+        public int getHotType() {
+            return hotType;
+        }
 
-    public String getQrurl() {
-        return qrurl;
-    }
+        public void setHotType(int hotType) {
+            this.hotType = hotType;
+        }
 
-    public void setQrurl(String qrurl) {
-        this.qrurl = qrurl;
-    }
+        public String getSign() {
+            return sign;
+        }
 
-    public String getBarcode() {
-        return barcode;
-    }
+        public void setSign(String sign) {
+            this.sign = sign;
+        }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+        public String getBarcode() {
+            return barcode;
+        }
+
+        public void setBarcode(String barcode) {
+            this.barcode = barcode;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getQrurl() {
+            return qrurl;
+        }
+
+        public void setQrurl(String qrurl) {
+            this.qrurl = qrurl;
+        }
     }
 }

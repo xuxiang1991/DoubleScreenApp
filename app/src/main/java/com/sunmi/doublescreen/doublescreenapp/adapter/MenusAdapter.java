@@ -64,7 +64,7 @@ public class MenusAdapter extends BaseAdapter {
             hold = (ViewHold) convertView.getTag();
         }
         Log.d("Sunmi", "getView: ------->" + (hold.tvId == null) + "  " + (mMenus == null));
-        hold.tvId.setText(mMenus.get(position).getUid() + "");
+        hold.tvId.setText(mMenus.get(position).getUid().substring(mMenus.get(position).getUid().length() - 4, mMenus.get(position).getUid().length()) + "");
         hold.tvName.setText(mMenus.get(position).getName());
         hold.tvMoney.setText(mMenus.get(position).getSellPrice());
         hold.tvcount.setText("X " + mMenus.get(position).getCount());

@@ -231,6 +231,7 @@ public class AidlUtil {
 
             woyouService.printTextWithFont(content, null, size, null);
             woyouService.lineWrap(3, null);
+            woyouService.cutPaper(null);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

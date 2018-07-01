@@ -143,6 +143,11 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
      */
     private int orderNo;
 
+    /**
+     * 最后一杯茶
+     */
+    private RandomProduct.DataBean lastTea;
+
     private IConnectionCallback mIConnectionCallback = new IConnectionCallback() {
         @Override
         public void onDisConnect() {
@@ -397,18 +402,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
-                                RandomProduct product = new Gson().fromJson(data.data, RandomProduct.class);
-                                ProductList.ProductsBean pb = getSelectProduct(product);
-                                if (pb == null) {
-                                    Toast.makeText(KMainActvity.this, "获取数据有误" + data.data, Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("item", getSelectProduct(product));
-                                dialogFragment.setArguments(bundle);
-                                dialogFragment.show(getSupportFragmentManager(), "");
-                                Toast.makeText(KMainActvity.this, "主屏4收到" + data.data, Toast.LENGTH_LONG).show();
+                                getCardsData(data.data + "");
                             }
                         });
                     }
@@ -423,6 +417,8 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                 //TODO implement
                 printDialog.setArguments(null);
                 printDialog.show(getSupportFragmentManager(), "");
+
+
                 break;
             case R.id.main_btn_pay:
 
@@ -478,7 +474,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
      * @param product
      * @return
      */
-    private ProductList.ProductsBean getSelectProduct(RandomProduct product) {
+    private ProductList.ProductsBean getSelectProduct(RandomProduct.DataBean product) {
         if (comDrinks.size() > 0) {
             for (int i = 0; i < comDrinks.size(); i++) {
                 ProductList.ProductsBean bean = comDrinks.get(i);
@@ -554,15 +550,12 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     /**
      * 设置打印项目
      */
-    private void setPrintDrinks()
-    {
+    private void setPrintDrinks() {
         printDrinks.clear();
-        for (int i=0;i<sallDrinks.size();i++)
-        {
-            ProductList.ProductsBean productsBean=sallDrinks.get(i);
-            for (int j=0;j<productsBean.getCount();j++)
-            {
-                ProductList.ProductsBean bean=productsBean.getCopy();
+        for (int i = 0; i < sallDrinks.size(); i++) {
+            ProductList.ProductsBean productsBean = sallDrinks.get(i);
+            for (int j = 0; j < productsBean.getCount(); j++) {
+                ProductList.ProductsBean bean = productsBean.getCopy();
                 bean.setCount(1);
                 printDrinks.add(bean);
             }
@@ -585,7 +578,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
         OrderForm orderForm = new OrderForm();
         try {
             orderForm.setPayMethod("Cash");//CustomerBalance 会员卡
-            orderForm.setCustomerNumber("1001");
+            orderForm.setCustomerNumber("10001");
             orderForm.setOrderDateTime(DateUtils.getCurrentdata());
             orderForm.setContactAddress("常熟");
             orderForm.setContactName("测试");
@@ -619,10 +612,15 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                             OrderResult or = new Gson().fromJson(data, OrderResult.class);
                             newOrder = or;
                             setPrintDrinks();
-                            gotoPay();
-
+                            getCardsData();
                         } else {
                             ToastManager.show("订单生成失败");
+                            newOrder = new OrderResult();
+                            OrderResult.DataBean d = new OrderResult.DataBean();
+                            d.setOrderNo("3423424");
+                            newOrder.setData(d);
+                            setPrintDrinks();
+                            getCardsData();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -712,16 +710,97 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     /**
      * 获取随机卡片数据
      */
-    private void getCardsData() {
+    private void getCardsData(String str) {
 
-        DailogUtil.showNetDialog(self);
-        CommonApiProvider.getNetGetCommon(DomainUrl.Choose_last_product, new CommonResponse<String>() {
+        CommonApiProvider.getNetPostCommon(DomainUrl.Choose_last_product, "", str, new CommonResponse<String>() {
             @Override
             public void onSuccess(CommonRequest request, String data) {
                 super.onSuccess(request, data);
                 Logger.e("xx_api", data + "");
                 if (!TextUtils.isEmpty(data) && data.length() > 2) {
                     RandomProduct product = new Gson().fromJson(data, RandomProduct.class);
+                    lastTea = product.getData().get(0);
+
+                    JSONObject jsonObjectapp2 = new JSONObject();
+                    try {
+                        jsonObjectapp2.put("dataModel", "LASTTEA");
+                        jsonObjectapp2.put("data", new Gson().toJson(lastTea));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    DataPacket packetapp2 = new DataPacket.Builder(DSData.DataType.CMD).recPackName(getPackageName()).data(jsonObjectapp2.toString())
+                            .addCallback(null).build();
+
+
+                    mDSKernel.sendQuery(packetapp2, new QueryCallback() {
+                        @Override
+                        public void onReceiveData(final DSData data) {
+                            Log.d("highsixty", "onReceiveData: ------------>" + data.data);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    if (!"1".equals(data.data)) {
+                                        return;
+                                    }
+
+                                    ProductList.ProductsBean pb = getSelectProduct(lastTea);
+                                    if (pb == null) {
+                                        Toast.makeText(KMainActvity.this, "获取数据有误" + data.data, Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("item", pb);
+                                    dialogFragment.setArguments(bundle);
+                                    dialogFragment.show(getSupportFragmentManager(), "");
+                                    Toast.makeText(KMainActvity.this, "主屏4收到" + data.data, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+
+                }
+
+            }
+
+            @Override
+            public void onFail(int errorCode, String errorMsg) {
+                super.onFail(errorCode, errorMsg);
+            }
+
+            @Override
+            public void onComplete() {
+                super.onComplete();
+                DailogUtil.closeNetDialog();
+            }
+        });
+    }
+
+    /**
+     * 获取随机卡片数据
+     */
+    private void getCardsData() {
+
+        DailogUtil.showNetDialog(self);
+        JSONObject ob = new JSONObject();
+        try {
+            ob.put("hotorcold", "热饮");
+            ob.put("loveorwork", "事业");
+            ob.put("count", printDrinks.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        CommonApiProvider.getNetPostCommon(DomainUrl.Choose_last_product, "", ob.toString(), new CommonResponse<String>() {
+            @Override
+            public void onSuccess(CommonRequest request, String data) {
+                super.onSuccess(request, data);
+                Logger.e("xx_api", data + "");
+                if (!TextUtils.isEmpty(data) && data.length() > 2) {
+                    RandomProduct product = new Gson().fromJson(data, RandomProduct.class);
+                    for (int i = 0; i < product.getData().size(); i++) {
+                        printDrinks.get(i).setUrl(product.getData().get(i).getQrurl());
+                    }
+                    gotoPay();
                 }
 
             }
@@ -1287,8 +1366,8 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
                 "时间：" + DateUtils.getCurrentdata() + "\n" +
                 "=================================\n" +
                 "订单详情：\n";
-        for (int i = 0; i < printDrinks.size(); i++) {
-            ProductList.ProductsBean bean = printDrinks.get(i);
+        for (int i = 0; i < sallDrinks.size(); i++) {
+            ProductList.ProductsBean bean = sallDrinks.get(i);
             contentStr = contentStr + bean.getName() + "   " + MenusAdapter.getSize(bean.getBoxType()) + "  " + MenusAdapter.getHot(bean.getHotType()) + "  X" + bean.getCount() + "\n";
         }
 
@@ -1301,7 +1380,7 @@ public class KMainActvity extends AppCompatActivity implements View.OnClickListe
     public void smPrint(String content) {
 
         if (baseApp.isAidl()) {
-            AidlUtil.getInstance().printText(content, 14, false, false);
+            AidlUtil.getInstance().printText(content, 28, false, false);
         } else {
             printByBluTooth(content);
         }
