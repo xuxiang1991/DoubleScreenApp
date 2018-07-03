@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="474.66dp"
-        android:layout_height="342.66dp"
+        android:layout_height="380.66dp"
         android:background="@drawable/pay_dialog_bg"
         android:gravity="center"
         android:orientation="horizontal">
@@ -254,13 +254,24 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="100dp">
+
+                    <EditText
+                        android:id="@+id/ed_barcode"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="16sp"
+                        android:textColor="@color/recommend_title_text_color"
+                        android:visibility="invisible"
+                        android:gravity="center"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="41.33dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="22dp"
+                        android:layout_below="@id/ed_barcode"
+                        android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 

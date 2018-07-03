@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -40,6 +43,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
     private RadioButton rbOne, rbTwo;
     private String mMoney;
     private TextView tvMoneyComplete;
+    private EditText ed_barcode;
     boolean isShow = false;//防多次点击
 
     public PayDialog() {
@@ -86,9 +90,26 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
         rbOne = (RadioButton) view.findViewById(R.id.rbone);
         rbTwo = (RadioButton) view.findViewById(R.id.rbtwo);
         tvMoneyComplete = (TextView) view.findViewById(R.id.tv_money_complete);
+        ed_barcode = (EditText) view.findViewById(R.id.ed_barcode);
 
         rbOne.setAlpha(1f);
         rbTwo.setAlpha(0.7f);
+        ed_barcode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void initAction() {
@@ -102,6 +123,7 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         ivBottom.setVisibility(View.INVISIBLE);
                         ivLogo.setImageResource(R.drawable.cash);
                         btnOk.setVisibility(View.VISIBLE);
+                        ed_barcode.setVisibility(View.INVISIBLE);
                         rbOne.setAlpha(1f);
                         rbTwo.setAlpha(0.7f);
                         break;
@@ -110,6 +132,10 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
                         ivBottom.setVisibility(View.VISIBLE);
                         ivLogo.setImageResource(R.drawable.paycode);
                         btnOk.setVisibility(View.GONE);
+                        ed_barcode.setVisibility(View.VISIBLE);
+                        ed_barcode.setFocusable(true);
+                        ed_barcode.setFocusableInTouchMode(true);
+                        ed_barcode.requestFocus();
                         rbOne.setAlpha(0.7f);
                         rbTwo.setAlpha(1);
                         break;
@@ -184,7 +210,9 @@ public class PayDialog extends AppCompatDialogFragment implements View.OnClickLi
 
     public interface OnCompleteListener {
         void onCancel();
+
         void onSuccess();
+
         void onComplete();
     }
 }
